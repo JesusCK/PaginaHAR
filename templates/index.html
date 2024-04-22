@@ -1,0 +1,55 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF Viewer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Función para cargar el GIF actualizado
+        function loadGIF() {
+            var img = document.getElementById('gif');
+            var timestamp = new Date().getTime(); // Agregar un timestamp para >
+            img.src = '../static/received.gif?' + timestamp;
+        }
+
+        // Función para cargar acciones desde el servidor Flask
+        function loadActions() {
+            $.ajax({
+                url: '/get_actions',
+                type: 'GET',
+                success: function(data) {
+                    $('#actions-list').empty(); // Vacía la lista actual de acc>
+                    // Agrega las acciones recibidas desde el servidor al conte>
+                    $.each(data.actions, function(index, action) {
+                        $('#actions-list').append('<li>' + action + '</li>');
+                    });
+                }
+            });
+        }
+                // Cargar GIF y acciones al cargar la página
+        $(document).ready(function() {
+            loadGIF();
+            loadActions();
+            // Actualizar GIF y acciones cada 5 segundos
+            setInterval(loadGIF, 5000);
+            setInterval(loadActions, 5000);
+        });
+    </script>
+</head>
+<body>
+    <h1>GIF Viewer</h1>
+    <div>
+       <!-- El GIF se mostrará aquí -->
+        <img id="gif" src="../static/received.gif" alt="GIF" style="max-width: 10;">
+    </div>
+    <h1>Acciones Predichas</h1>
+       <ul id="actions-list">
+            <!-- Las acciones se cargarán aquí -->
+       </ul>
+</body>
+</html>
+
+
+
+
