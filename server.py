@@ -24,11 +24,12 @@ def receive_data():
         file = request.files['file']
         file.save('static/received.gif')
         return 'Archivo GIF recibido correctamente.'
-    elif request.json and 'action' in request.json:
+    elif request.json and 'action' in request.json and 'date' in request.json:
         # Manejar la recepción de acciones predichas en formato JSON
         action = request.json['action']
-        actions.append(action)
-        return 'Acción recibida correctamente.'
+        date = request.json['date']
+        actions.append({'action': action, 'date': date})
+        return 'Acción y fecha recibidas correctamente.'
     else:
         return 'Solicitud incorrecta.', 400
     
