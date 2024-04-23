@@ -22,7 +22,7 @@
                     $('#actions-list').empty(); // Vacía la lista actual de acc>
                     // Agrega las acciones recibidas desde el servidor al conte>
                     $.each(data.actions, function(index, action) {
-                        $('#actions-list').append('<li>' + action + '</li>');
+                        $('#actions-list').append('<li>' + action.action ,  action.date+ '</li>');
                     });
                 }
             });
