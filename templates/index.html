@@ -13,9 +13,7 @@
             url: '/last_fall_date',
             type: 'GET',
             success: function(data) {
-                var date = new Date(data.last_fall_date);
-                var formattedDate = date.toLocaleString();
-                $('#last-fall-alert-date').text("Last fall alert date: " + formattedDate);
+                $('#last-fall-alert-date').text("Last fall alert date: " + data.last_fall_date);
             }
             });
         }
