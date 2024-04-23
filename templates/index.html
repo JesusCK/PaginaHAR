@@ -15,7 +15,7 @@
             success: function(data) {
                 var date = new Date(data.last_fall_date);
                 date = date.toString().split('GMT')[0];
-                $('#last-fall-alert-date').text("Last fall alert date: " + date);
+                $('#last-fall-alert-date').text("Ultima alerta de caida detectada: " + date);
             }
             });
         }
@@ -84,7 +84,7 @@
             
        <!-- El GIF se mostrará aquí -->
                 <img id="gif" src="../static/received.gif" class="img-fluid img-thumbnail rounded " alt="GIF" style="max-width: 10;">
-                <h2 id="last-fall-alert-date"></h2>
+                <h5 id="last-fall-alert-date"></h5>
             </div>
             <div class="col-2 ">
 
