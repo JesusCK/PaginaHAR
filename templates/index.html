@@ -13,7 +13,7 @@
             url: '/last_fall_date',
             type: 'GET',
             success: function(data) {
-                var date = new Date(data.last_fall_date);
+                var date = data.last_fall_date;
                 date = date.toString().split('GMT')[0];
                 $('#last-fall-alert-date').text("Ultima alerta de caida detectada: " + date);
             }
