@@ -8,6 +8,6 @@ var typewriter = new Typewriter(app, {
 });
 
 typewriter
-  .typeString('Bienvenido a tu sistema mas seguro')
+  .typeString('Bienvenido a SeniorSafe')
   .pauseFor(300)
   .start();
