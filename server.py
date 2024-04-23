@@ -52,7 +52,18 @@ def receive_data():
     else:
         return 'Incorrect request.', 400
     
+@app.route('/last_fall_date')
+def last_fall_date():
+    # Query the database for the latest fall action
+    query = "SELECT fecha FROM registro WHERE accion = 'Alerta de Caida' ORDER BY fecha DESC LIMIT 1"
+    cursor.execute(query)
+    result = cursor.fetchone()
 
+    # If a fall action exists, return the date
+    if result:
+        return jsonify({'last_fall_date': result[0]})
+    else:
+        return 'No fall action found.', 404
 @app.route('/')
 def index():
     return render_template('index.html', actions=actions)
