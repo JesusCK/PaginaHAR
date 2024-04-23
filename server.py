@@ -6,15 +6,6 @@ actions = []
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = {'gif'}
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-@app.route('/get_actions')
-def get_actions():
-    # Devuelve las últimas dos acciones como JSON
-    return jsonify({'actions': actions[-2:]})
 import mysql.connector
 
 # Create a connection to the database
@@ -26,6 +17,17 @@ db = mysql.connector.connect(
 )
 
 cursor = db.cursor()
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/get_actions')
+def get_actions():
+    # Devuelve las últimas dos acciones como JSON
+    return jsonify({'actions': actions[-2:]})
+
 
 @app.route('/receive_data', methods=['POST'])
 def receive_data():
