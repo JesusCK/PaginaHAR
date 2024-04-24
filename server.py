@@ -91,9 +91,7 @@ def last_fall_date():
 def index():
     return render_template('index.html', actions=actions)
 
-@app.route('/historicos')
-def historicos():
-    return render_template('historicos.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
