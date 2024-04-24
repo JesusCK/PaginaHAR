@@ -61,9 +61,10 @@
         function actualizarTabla(resultados) {
             var tabla = '';
             for (var i = 0; i < resultados.length; i++) {
-                var fecha = new Date(resultados[i][0]);
-                var formattedDate = fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear() + ' ' + fecha.getHours() + ':' + fecha.getMinutes() + ':' + fecha.getSeconds();
-                tabla += '<tr><td>' + formattedDate + '</td><td>' + resultados[i][1] + '</td></tr>';
+            var fecha = new Date(resultados[i][0]);
+            fecha.setHours(fecha.getHours() + 5); // Sumar 5 horas a la fecha
+            var formattedDate = fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear() + ' ' + fecha.getHours() + ':' + fecha.getMinutes() + ':' + fecha.getSeconds();
+            tabla += '<tr><td>' + formattedDate + '</td><td>' + resultados[i][1] + '</td></tr>';
             }
             document.querySelector('#resultados tbody').innerHTML = tabla;
         }
