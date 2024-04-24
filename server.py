@@ -27,7 +27,8 @@ def consultar_historicos():
         fecha_fin = request.form['fecha_fin']
 
         # Consultar la base de datos para obtener los registros en el rango de fechas especificado
-        query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s"
+        # Ordenar los resultados desde la fecha más reciente hasta la menos reciente
+        query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s ORDER BY fecha DESC"
         cursor.execute(query, (fecha_inicio, fecha_fin))
         resultados = cursor.fetchall()
 
