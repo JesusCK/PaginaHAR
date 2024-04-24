@@ -15,5 +15,37 @@
     <div id="resultados">
         <!-- Los resultados de la consulta se mostrarán aquí -->
     </div>
+    <script>
+        // Función para actualizar la tabla con los resultados de la consulta
+        function actualizarTabla(resultados) {
+            var tabla = '<table><tr><th>Fecha</th><th>Acción</th></tr>';
+            for (var i = 0; i < resultados.length; i++) {
+                tabla += '<tr><td>' + resultados[i][0] + '</td><td>' + resultados[i][1] + '</td></tr>';
+            }
+            tabla += '</table>';
+            document.getElementById('resultados').innerHTML = tabla;
+        }
+
+        // Escuchar el evento submit del formulario
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar que se recargue la página
+            var formData = new FormData(this);
+            fetch('/consultar_historicos', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.resultados) {
+                    actualizarTabla(data.resultados);
+                } else {
+                    document.getElementById('resultados').innerHTML = 'No se encontraron resultados.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
 </body>
 </html></div></form>

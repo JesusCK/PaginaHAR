@@ -18,6 +18,29 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+# Ruta para manejar la consulta de históricos
+@app.route('/consultar_historicos', methods=['POST'])
+def consultar_historicos():
+    if request.method == 'POST':
+        # Obtener las fechas de inicio y fin del formulario
+        fecha_inicio = request.form['fecha_inicio']
+        fecha_fin = request.form['fecha_fin']
+
+        # Consultar la base de datos para obtener los registros en el rango de fechas especificado
+        query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s"
+        cursor.execute(query, (fecha_inicio, fecha_fin))
+        resultados = cursor.fetchall()
+
+        # Devolver los resultados como JSON
+        return jsonify({'resultados': resultados})
+    else:
+        return 'Método de solicitud no permitido.', 405
+
+# Ruta para cargar la página de consulta de históricos
+@app.route('/historicos')
+def historicos():
+    return render_template('historicos.html')
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
