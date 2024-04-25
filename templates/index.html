@@ -69,16 +69,16 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light bg-body-tertiary">
-      <div class = "container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class = 'container-fluid'>
         <a class="navbar-brand" href="#">SeniorSafe</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home <span>(current)</span class='sr-only'></a>
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/historicos">Historicos</a>
@@ -89,33 +89,33 @@
         </div>
       </nav>
     
-        <div class ="container-fluid">
+    <div class ="container-fluid">
         
-            <div class="row justify">
-                
-                <div class="col">
-                
-        <!-- El GIF se mostrará aquí -->
-                    <img id="gif" src="../static/received.gif" class="img-fluid img-thumbnail rounded " alt="GIF" style="max-width: 10;">
-                    <h5 id="last-fall-alert-date"></h5>
-                </div>
-
-                
+        <div class="row justify">
+            
+            <div class="col-auto ">
+            
+       <!-- El GIF se mostrará aquí -->
+                <img id="gif" src="../static/received.gif" class="img-fluid img-thumbnail rounded " alt="GIF" style="max-width: 10;">
+                <h5 id="last-fall-alert-date"></h5>
             </div>
-            <div class="row">
-                <div class="col ">
 
-                    <h1>Ultimas Acciones Monitoreadas</h1>
-                        <ul id="actions-list">
-                                <!-- Las acciones se cargarán aquí -->
-                        </ul>
-                </div>
+            
+        </div>
+        <div class="row">
+            <div class="col ">
 
+                <h1>Ultimas Acciones Monitoreadas</h1>
+                    <ul id="actions-list">
+                            <!-- Las acciones se cargarán aquí -->
+                    </ul>
             </div>
+
+        </div>
         
         
             
-         </div>
+    </div>
 
     <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
     <script src="../static/main.js"></script>
