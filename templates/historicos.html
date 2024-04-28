@@ -61,6 +61,16 @@
         </table>
     </div>
     <div class="container mt-3">
+        <div class="row">
+            <div class="col-6"></div>
+                <button id="anteriorBtn" class="btn btn-primary">Anterior</button>
+            </div>
+            <div class="col-6 text-right">
+                <span id="indice"></span>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
         <button id="siguienteBtn" class="btn btn-primary">Siguiente</button>
     </div>
     <script>
@@ -81,6 +91,7 @@
                 tabla += '<tr><td>' + formattedDate + '</td><td>' + resultadosPagina[i][1] + '</td></tr>';
             }
             document.querySelector('#resultados tbody').innerHTML = tabla;
+            document.querySelector('#indice').textContent = 'Página ' + (paginaActual + 1) + ' de ' + Math.ceil(resultados.length / resultadosPorPagina);
         }
 
         // Función para actualizar la tabla con los resultados de la consulta
@@ -97,9 +108,22 @@
             }
         }
 
+        // Función para retroceder a la página anterior de resultados
+        function anteriorPagina() {
+            if (paginaActual > 0) {
+                paginaActual--;
+                mostrarResultados();
+            }
+        }
+
         // Escuchar el evento click del botón "Siguiente"
         document.querySelector('#siguienteBtn').addEventListener('click', function() {
             siguientePagina();
+        });
+
+        // Escuchar el evento click del botón "Anterior"
+        document.querySelector('#anteriorBtn').addEventListener('click', function() {
+            anteriorPagina();
         });
 
         // Escuchar el evento submit del formulario
@@ -124,5 +148,6 @@
             });
         });
     </script>
+   
 </body>
 </html>
