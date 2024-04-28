@@ -124,38 +124,5 @@
             });
         });
     </script>
-        // Función para actualizar la tabla con los resultados de la consulta
-        function actualizarTabla(resultados) {
-            var tabla = '';
-            for (var i = 0; i < resultados.length; i++) {
-            var fecha = new Date(resultados[i][0]);
-            fecha.setHours(fecha.getHours() + 5); // Sumar 5 horas a la fecha
-            var formattedDate = fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear() + ' ' + fecha.getHours() + ':' + fecha.getMinutes() + ':' + fecha.getSeconds();
-            tabla += '<tr><td>' + formattedDate + '</td><td>' + resultados[i][1] + '</td></tr>';
-            }
-            document.querySelector('#resultados tbody').innerHTML = tabla;
-        }
-
-        // Escuchar el evento submit del formulario
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Evitar que se recargue la página
-            var formData = new FormData(this);
-            fetch('/consultar_historicos', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.resultados) {
-                    actualizarTabla(data.resultados);
-                } else {
-                    document.querySelector('#resultados tbody').innerHTML = '<tr><td colspan="2">No se encontraron resultados.</td></tr>';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    </script>
 </body>
 </html>
