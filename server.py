@@ -31,11 +31,17 @@ def consultar_historicos():
         # Obtener las fechas de inicio y fin del formulario
         fecha_inicio = request.form['fecha_inicio']
         fecha_fin = request.form['fecha_fin']
+        accion = request.form.get('accion')  # Obtener la acción seleccionada
 
-        # Consultar la base de datos para obtener los registros en el rango de fechas especificado
-        # Ordenar los resultados desde la fecha más reciente hasta la menos reciente
-        query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s ORDER BY fecha DESC"
-        cursor.execute(query, (fecha_inicio, fecha_fin))
+        
+# Construir la consulta SQL con el filtro de acción
+        if accion:
+            query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s AND accion = %s ORDER BY fecha DESC"
+            cursor.execute(query, (fecha_inicio, fecha_fin, accion))
+        else:
+            query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s ORDER BY fecha DESC"
+            cursor.execute(query, (fecha_inicio, fecha_fin))
+
         resultados = cursor.fetchall()
 
         # Devolver los resultados como JSON
