@@ -10,10 +10,10 @@ import mysql.connector
 
 # Create a connection to the database
 db = mysql.connector.connect(
-    host="humandetectdb.col4pixfadqv.us-east-2.rds.amazonaws.com",
+    host="humandetection.cowqdq0hohod.us-east-2.rds.amazonaws.com",
     user="admin",
     password="123456789",
-    database="HumanActionsRecognitions"
+    database="actividades"
 )
 
 cursor = db.cursor()
