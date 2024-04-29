@@ -1,19 +1,25 @@
 from flask import Flask, render_template, request, jsonify
 import os
+from twilio.rest import Client
+from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE
 app = Flask(__name__)
 
 actions = []
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = {'gif'}
 
+account_sid = ACOUNT_SID
+auth_token = AUTH_TOKEN
+client = Client(account_sid, auth_token)
+
 import mysql.connector
 
 # Create a connection to the database
 db = mysql.connector.connect(
-    host="humandetection.cowqdq0hohod.us-east-2.rds.amazonaws.com",
-    user="admin",
-    password="123456789",
-    database="actividades"
+    host=HOST,
+    user=USER,
+    password=PASSWORD,
+    database=DATABASE
 )
 
 cursor = db.cursor()
@@ -63,6 +69,13 @@ def receive_data():
     elif request.json and 'action' in request.json and 'date' in request.json:
         # Handle the receipt of predicted actions in JSON format
         action = request.json['action']
+        if action == 'Alerta de Caida':
+            message = client.messages.create(
+                from_='+16146109328',
+                body='Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net',
+                to='+573003887981'
+            )
+            print(message.sid)
         date = request.json['date']
         actions.append({'action': action, 'date': date})
 
