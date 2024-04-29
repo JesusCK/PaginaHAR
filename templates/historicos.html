@@ -17,6 +17,68 @@
             margin-right: 20px; /* Añade espacio entre el texto y el borde derecho */
         }
     </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class ="container-fluid">
+          <a class="navbar-brand" href="#">SeniorSafe</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/historicos">Historicos</a>
+              </li>
+              
+            </ul>
+          </div>
+      </div>
+      </nav>
+    
+    <h1 class="display-4 text-center">Consulta de Históricos</h1>
+    <form  class="container">
+        <div class="form-group">
+            <label for="fecha_inicio">Fecha de inicio:</label><br>
+            <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control"><br>
+        </div>
+        <div class ="form-group">
+            <label for="fecha_fin">Fecha de fin:</label><br>
+            <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control"><br>
+        </div>
+        <button type="submit" class="btn btn-primary"> Consultar </button>  
+    </form>
+    <div id="resultados" class="container mt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los resultados de la consulta se mostrarán aquí -->
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-6 text-right">
+                <span id="indice"></span>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <button id="siguienteBtn" class="btn btn-primary">Siguiente</button>
+        <button id="anteriorBtn" class="btn btn-primary">Anterior</button>
+    </div>
+
+
+
     <script>
         var resultados = []; // Variable para almacenar todos los resultados de la consulta
         var paginaActual = 0; // Variable para almacenar la página actual de resultados
@@ -92,64 +154,6 @@
             });
         });
     </script>
-</head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <div class ="container-fluid">
-          <a class="navbar-brand" href="#">SeniorSafe</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/historicos">Historicos</a>
-              </li>
-              
-            </ul>
-          </div>
-      </div>
-      </nav>
-    
-    <h1 class="display-4 text-center">Consulta de Históricos</h1>
-    <form  class="container">
-        <div class="form-group">
-            <label for="fecha_inicio">Fecha de inicio:</label><br>
-            <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control"><br>
-        </div>
-        <div class ="form-group">
-            <label for="fecha_fin">Fecha de fin:</label><br>
-            <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control"><br>
-        </div>
-        <button type="submit" class="btn btn-primary"> Consultar </button>  
-    </form>
-    <div id="resultados" class="container mt-5">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Los resultados de la consulta se mostrarán aquí -->
-            </tbody>
-        </table>
-    </div>
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-6 text-right">
-                <span id="indice"></span>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-3">
-        <button id="siguienteBtn" class="btn btn-primary">Siguiente</button>
-        <button id="anteriorBtn" class="btn btn-primary">Anterior</button>
-    </div>
 
     
    
