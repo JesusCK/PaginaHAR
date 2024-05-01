@@ -146,9 +146,9 @@
             for (var i = 0; i < resultados.length; i++) {
             var accion = resultados[i][1];
             if (acciones[accion]) {
-                acciones[accion]++;
+            acciones[accion]++;
             } else {
-                acciones[accion] = 1;
+            acciones[accion] = 1;
             }
             }
             var data = [];
@@ -163,42 +163,46 @@
             var chart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: labels,
-                datasets: [{
-                data: data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(153, 102, 255, 0.8)',
-                    'rgba(255, 159, 64, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-                }]
+            labels: labels,
+            datasets: [{
+            data: data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(255, 159, 64, 0.8)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+            }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                tooltips: {
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                    var dataset = data.datasets[tooltipItem.datasetIndex];
-                    var total = dataset.data.reduce((a, b) => a + b, 0);
-                    var currentValue = dataset.data[tooltipItem.index];
-                    var percentage = ((currentValue / total) * 100).toFixed(2) + "%";
-                    return data.labels[tooltipItem.index] + ": " + currentValue + " (" + percentage + ")";
-                    }
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                var dataset = data.datasets[tooltipItem.datasetIndex];
+                var total = dataset.data.reduce((a, b) => a + b, 0);
+                var currentValue = dataset.data[tooltipItem.index];
+                var percentage = ((currentValue / total) * 100).toFixed(2) + "%";
+                return data.labels[tooltipItem.index] + ": " + currentValue + " (" + percentage + ")";
                 }
-                }
+            }
+            },
+            animation: {
+                animateRotate: true,
+                animateScale: true
+            }
             }
             });
         }
