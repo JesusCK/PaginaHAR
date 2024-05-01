@@ -42,14 +42,14 @@
       </nav>
     
     <h1 class="display-4 text-center">Consulta de Históricos</h1>
-    <form  class="container">
+    <form class="container"></form>
         <div class="form-group">
             <label for="fecha_inicio">Fecha de inicio:</label><br>
-            <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control"><br>
+            <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control" value="2024-04-27T00:00"><br>
         </div>
-        <div class ="form-group">
+        <div class="form-group">
             <label for="fecha_fin">Fecha de fin:</label><br>
-            <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control"><br>
+            <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control" value="2024-05-01T23:59"><br>
         </div>
         <div class="form-group">
             <label for="accion">Acción:</label><br>
@@ -62,7 +62,8 @@
                 <option value="Caminando">Caminando</option>
             </select><br>
         </div>
-        <button type="submit" class="btn btn-primary"> Consultar </button>  
+        <button type="submit" class="btn btn-primary">Consultar</button>
+    </form>
     </form>
     
     <div id="resultados" class="container mt-5">
@@ -142,12 +143,12 @@
         function generarGraficaCircular(resultados) {
             var acciones = {}; // Objeto para almacenar la frecuencia de cada acción
             for (var i = 0; i < resultados.length; i++) {
-                var accion = resultados[i][1];
-                if (acciones[accion]) {
-                    acciones[accion]++;
-                } else {
-                    acciones[accion] = 1;
-                }
+            var accion = resultados[i][1];
+            if (acciones[accion]) {
+                acciones[accion]++;
+            } else {
+                acciones[accion] = 1;
+            }
             }
             var data = [];
             var labels = [];
@@ -155,6 +156,8 @@
             data.push(acciones[accion]);
             labels.push(accion);
             }
+            var total = data.reduce((a, b) => a + b, 0);
+            var porcentajes = data.map(d => ((d / total) * 100).toFixed(2) + '%');
             var ctx = document.getElementById('graficaCircular').getContext('2d');
             var chart = new Chart(ctx, {
             type: 'pie',
@@ -183,7 +186,18 @@
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var total = dataset.data.reduce((a, b) => a + b, 0);
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var percentage = ((currentValue / total) * 100).toFixed(2) + "%";
+                    return data.labels[tooltipItem.index] + ": " + currentValue + " (" + percentage + ")";
+                    }
+                }
+                }
             }
             });
         }
