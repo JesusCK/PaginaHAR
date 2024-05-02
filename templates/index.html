@@ -20,7 +20,7 @@
             success: function(data) {
                 var date = data.last_fall_date;
                 date = date.toString().split('GMT')[0];
-                $('#last-fall-alert-date').text("Ultima alerta de caida detectada: " + date);
+                $('#last-fall-alert-date').text("Última alerta de caída detectada: " + date);
             }
             });
         }
@@ -99,7 +99,7 @@
                             <a class="nav-link" href="/index">Monitoreo <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/historicos">Historicos</a>
+                            <a class="nav-link" href="/historicos">Históricos</a>
                         </li>
                         
                         </ul>
@@ -127,7 +127,7 @@
                 <div class="row">
                     <div class="col">
                         <!-- Utiliza las clases display-4 y fs-10 para el título -->
-                        <h1 class="display-5 fs-10">Ultimas Acciones Monitoreadas</h1>
+                        <h1 class="display-5 fs-10">Últimas Acciones Monitoreadas</h1>
                             <ul id="actions-list" class="list-group">
                             <!-- Las acciones se cargarán aquí -->
                             </ul>
