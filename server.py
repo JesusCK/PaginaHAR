@@ -109,7 +109,7 @@ def last_fall_date():
         return 'No fall action found.', 404
 @app.route('/')
 def index():
-    return render_template('index.html', actions=actions)
+    return render_template('lpage.html', actions=actions)
 
 
 

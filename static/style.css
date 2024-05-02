@@ -1,0 +1,219 @@
+p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #747e74;
+    margin: 0;
+}
+
+ ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+ }
+a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+@keyframes bounceTop-1 {
+    0%,100% {
+        transform: translateY(-30px);
+    }
+    50% {
+        transform: translateY(0px);
+    }
+    
+}
+.navbar-area  {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navbar {
+    position: relative;
+    padding: 20px 0;
+}
+
+.header-image {
+    position: relative;
+    padding-top: 80px; 
+    animation: bounceTop-1 3s ease infinite;
+}
+.header-shape-1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-image: url(../static/header-shape-1.svg);
+    background-position: left center;
+    background-size: cover;
+    z-index: -1;
+}
+.header-shape-2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
+    .header-hero-content {
+        margin-top: 30%;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
+    .header-image img {
+        height: 0;
+}
+}
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
+
+.navbar-nav .nav-item .nav-link::before {
+        position: relative;
+    }
+}
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item .nav-link:hover {
+    color: #ff846f;
+}
+
+.header-hero .shape {
+position: absolute;
+}
+
+.header-hero .shape.shape-1 {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    left: 500px;
+    top: 20%;
+    border-radius: 50%;
+    background: #637ae4;
+    animation: animation-1 2s linear infinite;
+}
+
+.header-hero .shape.shape-2 {
+    width: 39px;
+    height: 39px;
+    left: 150px;
+    bottom: 40px;
+    border-radius: 50%;
+    background: #0898e7;
+    animation: animation-1 2s linear infinite;
+}
+
+.header-hero .shape.shape-3 {
+    width: 19px;
+    height: 19px;
+    left: 50px;
+    bottom: 25%;
+    border-radius: 50%;
+    background: #ff846f;
+    animation: animation-1 2s linear infinite;
+}
+
+.header-hero .shape.shape-4 {
+    width: 39px;
+    height: 39px;
+    left: 40%;
+    top: 175px;
+    border-radius: 50%;
+    background: #4ebaf5;
+    animation: animation-1 2s linear infinite;
+}
+
+.header-hero .shape.shape-5 {
+    width: 19px;
+    height: 19px;
+    left: 50%;
+    bottom: 20%;
+    border-radius: 50%;
+    background: #ff5b56;
+    animation: animation-1 2s linear infinite;
+}
+
+.header-hero .shape.shape-6 {
+    width: 14px;
+    height: 14px;
+    left: 45%;
+    bottom: 70%;
+    border-radius: 50%;
+    background: #4ebaf5;
+    animation: animation-1 2s linear infinite;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px),
+(max-width: 767px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 5px 12px;
+        background-color: #fff;
+        box-shadow: 0 15px 20px 0 rgb(0 0 0 / 10%);
+    }
+}
+.header-hero-content {
+    position: relative;
+}
+
+.header-hero-content .header-title {
+    font-size: 42px;
+    color: #38424d;
+}
+
+.header-hero-content .text {
+    margin-top: 30px;
+}
+
+.header-hero-content ul {
+    margin-top: 30px;
+}
+
+.main-btn {
+    display: inline-block;
+    padding: 0 25px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 55px;
+    border: 2px solid #0898ef;
+    border-radius: 5px;
+    background-color: #0898ef;
+    color: #fff;
+}
+
+.main-btn:hover {
+    background-color: rgba(8, 152, 231, .7);
+    color: #fff;
+    border-color: transparent;
+}
+
+span {
+    display: contents;
+    color: #fe5f59;
+}
+
+@keyframes animation-1 {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
