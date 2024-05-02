@@ -9,6 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
         // Function to load the last fall alert date from the Flask server
         function loadLastFallAlertDate() {
@@ -46,11 +48,68 @@
                 }
             });
         }
+
+        // Función para cargar las acciones y dibujar la gráfica
+        function loadActionsAndDrawChart() {
+            $.ajax({
+                url: '/get_graph_data',
+                type: 'GET',
+                success: function(data) {
+                    var actions = data.actions;
+
+                    // Procesar los datos para obtener la frecuencia de cada acción
+                    var actionCounts = {};
+                    actions.forEach(function(action) {
+                        actionCounts[action.action] = (actionCounts[action.action] || 0) + 1;
+                    });
+
+                    // Convertir los datos en un formato adecuado para Chart.js
+                    var labels = Object.keys(actionCounts);
+                    var data = Object.values(actionCounts);
+
+                    // Obtener el contexto del canvas
+                    var ctx = document.getElementById('actions-chart').getContext('2d');
+
+                    // Dibujar la gráfica
+                    var chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Frecuencia de Acciones',
+                                data: data,
+                                backgroundColor: 'rgba(255, 99, 132, 0.5)', // Color de fondo de las barras
+                                borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true // Iniciar el eje Y en 0
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Llamar a la función al cargar la página
+       
+
+
+
+
                 // Cargar GIF y acciones al cargar la página
         $(document).ready(function() {
             loadGIF();
             loadActions();
-            loadLastFallAlertDate();
+            loadLastFallAlertDate();ç
+            loadActionsAndDrawChart();
+
+            // Actualizar la gráfica cada 2 segundos
+            setInterval(loadActionsAndDrawChart, 2000);
             // Actualizar GIF y acciones cada 2 segundos
             setInterval(loadGIF, 2000);
             setInterval(loadActions, 2000);
@@ -115,6 +174,13 @@
                             <!-- Las acciones se cargarán aquí -->
                             </ul>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+
                 </div>
                 
                 
