@@ -526,7 +526,7 @@ span {
     }
 
     .header-shape-2 {
-        height: 0;
+        height: 0px;
         background-position: center bottom;
     }
 }
