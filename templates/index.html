@@ -50,50 +50,7 @@
         }
 
         // Función para cargar las acciones y dibujar la gráfica
-        function loadActionsAndDrawChart() {
-            $.ajax({
-                url: '/get_graph_data',
-                type: 'GET',
-                success: function(data) {
-                    var actions = data.actions;
-
-                    // Procesar los datos para obtener la frecuencia de cada acción
-                    var actionCounts = {};
-                    actions.forEach(function(action) {
-                        actionCounts[action.action] = (actionCounts[action.action] || 0) + 1;
-                    });
-
-                    // Convertir los datos en un formato adecuado para Chart.js
-                    var labels = Object.keys(actionCounts);
-                    var data = Object.values(actionCounts);
-
-                    // Obtener el contexto del canvas
-                    var ctx = document.getElementById('actions-chart').getContext('2d');
-
-                    // Dibujar la gráfica
-                    var chart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Frecuencia de Acciones',
-                                data: data,
-                                backgroundColor: 'rgba(255, 99, 132, 0.5)', // Color de fondo de las barras
-                                borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true // Iniciar el eje Y en 0
-                                }
-                            }
-                        }
-                    });
-                }
-            });
-        }
+ 
 
         // Llamar a la función al cargar la página
        
@@ -106,7 +63,7 @@
             loadGIF();
             loadActions();
             loadLastFallAlertDate();
-            loadActionsAndDrawChart();
+        ;
 
             // Actualizar la gráfica cada 2 segundos
            
@@ -114,7 +71,7 @@
             setInterval(loadGIF, 2000);
             setInterval(loadActions, 2000);
             setInterval(loadLastFallAlertDate,2000);
-            setInterval(loadActionsAndDrawChart, 2000);
+        
         });
     </script>
 

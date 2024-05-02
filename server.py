@@ -68,20 +68,8 @@ def get_actions():
     # Devuelve las últimas dos acciones como JSON
     return jsonify({'actions': actions[-2:]})
 
-@app.route('/get_graph_data')
-def get_data():
-    # Query the database to retrieve all actions
-    query = "SELECT accion FROM registro"
-    cursor.execute(query)
-    results = cursor.fetchall()
-        
-    if results:    # Extract the actions from the results
-        actions = [result[0] for result in results]
 
-    # Return the actions as JSON
-        return jsonify({'actions': actions})
-    else:
-        return 'No actions found.', 404
+    
 
 
 @app.route('/receive_data', methods=['POST'])
