@@ -74,12 +74,14 @@ def get_data():
     query = "SELECT accion FROM registro"
     cursor.execute(query)
     results = cursor.fetchall()
-
-    # Extract the actions from the results
-    actions = [result[0] for result in results]
+        
+    if results:    # Extract the actions from the results
+        actions = [result[0] for result in results]
 
     # Return the actions as JSON
-    return jsonify({'actions': actions})
+        return jsonify({'actions': actions})
+    else:
+        return 'No actions found.', 404
 
 
 @app.route('/receive_data', methods=['POST'])
