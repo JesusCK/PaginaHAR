@@ -105,15 +105,16 @@
         $(document).ready(function() {
             loadGIF();
             loadActions();
-            loadLastFallAlertDate();ç
+            loadLastFallAlertDate();
             loadActionsAndDrawChart();
 
             // Actualizar la gráfica cada 2 segundos
-            setInterval(loadActionsAndDrawChart, 2000);
+           
             // Actualizar GIF y acciones cada 2 segundos
             setInterval(loadGIF, 2000);
             setInterval(loadActions, 2000);
-            setInterval(loadLastFallAlertDate,2000)
+            setInterval(loadLastFallAlertDate,2000);
+            setInterval(loadActionsAndDrawChart, 2000);
         });
     </script>
 
@@ -178,6 +179,9 @@
 
                 <div class="row">
                     <div class="col">
+
+                        <canvas id="actions-chart"></canvas>
+
 
                     </div>
 
