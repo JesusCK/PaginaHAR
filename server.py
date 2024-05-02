@@ -54,6 +54,10 @@ def consultar_historicos():
 def historicos():
     return render_template('historicos.html')
 
+@app.route('/index')
+def index2():
+    return render_template('index.html', actions=actions)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
