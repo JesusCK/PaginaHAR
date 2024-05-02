@@ -511,7 +511,7 @@ span {
 @media only screen and (min-width: 768px) and (max-width: 991px),
 (max-width: 767px) {
     .header-image img {
-        height: 10;
+        height: auto;
     }
 
     .header-shape-1 {
