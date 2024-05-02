@@ -77,39 +77,41 @@
         
         
         </div>
-        <div class="header-results">
         <div class="container mt-5">
-            <canvas id="graficaCircular"></canvas>
-        </div>
-    
-        
-        <div id="resultados" class="container mt-5">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los resultados de la consulta se mostrarán aquí -->
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="container mt-3">
             <div class="row">
-                <div class="col-6 text-right">
-                    <span id="indice"></span>
+                <div class="col-md-6">
+                    <div id="resultados" class="container">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los resultados de la consulta se mostrarán aquí -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div class="col-6 text-right">
+                                <span id="indice"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-3">
+                        <button id="anteriorBtn" class="btn btn-primary">Anterior</button>
+                        <button id="siguienteBtn" class="btn btn-primary">Siguiente</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="container mt-5">
+                        <canvas id="graficaCircular"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="container mt-3">
-            <button id="anteriorBtn" class="btn btn-primary">Anterior</button>
-            <button id="siguienteBtn" class="btn btn-primary">Siguiente</button>
-            
-        </div>
-    </div>
     </header>
     
    
