@@ -118,6 +118,10 @@ def last_fall_date():
 def index():
     return render_template('lpage.html', actions=actions)
 
+@app.route('/research')
+def research():
+    return render_template('research.html')
+
 
 
 if __name__ == '__main__':
