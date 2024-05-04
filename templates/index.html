@@ -33,7 +33,7 @@
         function loadGIF() {
             var img = document.getElementById('gif');
             var timestamp = new Date().getTime(); // Agregar un timestamp para >
-            img.src = '../static/received.gif';
+            img.src = '../static/received.gif?' + timestamp;
         }
 
         // Función para cargar acciones desde el servidor Flask
