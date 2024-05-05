@@ -11,6 +11,16 @@
 #Muestras {
     margin-top: 120px;
 }
+
+#Confusion {
+    margin-top: 40px;
+    margin-right: 40px;
+}
+
+#Precision {
+    margin-top: 40px;
+    margin-right: 40px;
+}
 /* ----------- global ---------------- */
 
 body {
