@@ -389,6 +389,25 @@ span {
  
    .navbar-nav .nav-item .nav-link::before {
         position: relative;
+    
+    }
+
+    #GUI {
+        margin-left: 0px;
+    }
+    
+    #Muestras {
+        margin-top: 120px;
+    }
+    
+    #Confusion {
+        margin-top: 0px;
+        margin-right: 0px;
+    }
+    
+    #Precision {
+        margin-top: 0px;
+        margin-right: 0px;
     }
 }
 .navbar-nav .nav-item .nav-link.active::before,
