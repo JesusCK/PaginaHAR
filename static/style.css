@@ -12,6 +12,15 @@
     margin-top: 120px;
 }
 
+#Confusion {
+    margin-top: 40px;
+    margin-right: 80px;
+}
+
+#Precision {
+    margin-top: 40px;
+    margin-right: 80px;
+}
 /* ----------- global ---------------- */
 
 body {
