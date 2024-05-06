@@ -117,11 +117,18 @@ def last_fall_date():
         return 'No fall action found.', 404
 @app.route('/')
 def index():
-    return render_template('lpage.html', actions=actions)
+    return render_template('lpage.html')
 
 @app.route('/research')
 def research():
     return render_template('research.html')
+
+from flask import make_response
+
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store'
+    return response
 
 
 
