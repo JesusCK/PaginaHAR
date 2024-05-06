@@ -51,6 +51,61 @@
         }
 
         // Función para cargar las acciones y dibujar la gráfica
+        function loadActionsAndDrawChart() {
+            $.ajax({
+            url: '/todas_las_acciones',
+            type: 'GET',
+            success: function(data) {
+                resultados = data.resultados;
+                // Dibujar gráfica
+                drawChart(resultados);
+            }
+            });
+        }
+
+        // Función para dibujar la gráfica de acciones
+        function drawChart(resultados) {
+            // Obtener los datos necesarios para la gráfica
+            var labels = [];
+            var data = [];
+            $.each(resultados, function(index, action) {
+            labels.push(action[0]);
+            data.push(action[1]);
+            });
+
+            // Configurar opciones de la gráfica
+            var options = {
+            responsive: true,
+            maintainAspectRatio: false
+            };
+
+            // Configurar datos de la gráfica
+            var chartData = {
+            labels: labels,
+            datasets: [{
+            label: 'Acciones',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+            }]
+            };
+
+            // Obtener el contexto del elemento canvas
+            var ctx = document.getElementById('actions-chart').getContext('2d');
+
+            // Crear la gráfica
+            var chart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: options
+            });
+        }
+
+        // Llamar a la función al cargar la página
+       
+
+        // Función para cargar las acciones y dibujar la gráfica
          
         // Llamar a la función al cargar la página
        
@@ -63,6 +118,7 @@
             loadGIF();
             loadActions();
             loadLastFallAlertDate();
+            loadActionsAndDrawChart(); 
         ;
 
             // Actualizar la gráfica cada 2 segundos
@@ -71,6 +127,7 @@
             setInterval(loadGIF, 5000);
             setInterval(loadActions, 2000);
             setInterval(loadLastFallAlertDate,5000);
+            setInterval(loadActionsAndDrawChart, 2000);
         
         });
     </script>
@@ -134,6 +191,14 @@
                             <ul id="actions-list" class="list-group">
                             <!-- Las acciones se cargarán aquí -->
                             </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <!-- Utiliza las clases display-4 y fs-10 para el título -->
+                        <h1 class="display-5 fs-10">Últimas Acciones Monitoreadas</h1>
+                            <canvas id="actions-chart"></canvas>
                     </div>
                 </div>
 

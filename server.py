@@ -131,7 +131,7 @@ def add_header(response):
     return response
 
     # Consulta para obtener todas las acciones y fechas desde el inicio hasta el último dato recibido
-@app.route('/todas_las_acciones', methods=['POST'])
+@app.route('/todas_las_acciones', methods=['GET'])
 def todas_las_acciones():
     # Construir la consulta SQL
     query = "SELECT fecha, accion FROM registro ORDER BY fecha ASC"
