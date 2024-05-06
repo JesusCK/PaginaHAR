@@ -130,7 +130,17 @@ def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
 
+    # Consulta para obtener todas las acciones y fechas desde el inicio hasta el último dato recibido
+@app.route('/todas_las_acciones', methods=['POST'])
+def todas_las_acciones():
+    # Construir la consulta SQL
+    query = "SELECT fecha, accion FROM registro ORDER BY fecha ASC"
+    cursor.execute(query)
 
+    resultados = cursor.fetchall()
+
+    # Devolver los resultados como JSON
+    return jsonify({'resultados': resultados})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
