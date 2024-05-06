@@ -69,17 +69,18 @@ def get_actions():
     return jsonify({'actions': actions[-2:]})
 
 
-    
-
-
-@app.route('/receive_data', methods=['POST'])
-def receive_data():
+@app.route('/upload', methods=['POST'])
+def gifreceived():
     if 'file' in request.files:
         # Handle the receipt of GIF files
         file = request.files['file']
         file.save('static/received.gif')
-        return 'GIF file received correctly.'
-    elif request.json and 'action' in request.json and 'date' in request.json:
+        return 'GIF file received correctly.' 
+
+
+@app.route('/receive_data', methods=['POST'])
+def receive_data():    
+    if request.json and 'action' in request.json and 'date' in request.json:
         # Handle the receipt of predicted actions in JSON format
         action = request.json['action']
         if action == 'Alerta de Caida':
