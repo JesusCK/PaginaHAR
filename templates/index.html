@@ -32,7 +32,7 @@
         // Función para cargar el GIF actualizado
         function loadGIF() {
             var img = document.getElementById('gif');
-            var timestamp = new Date().getTime(); // Agregar un timestamp para >
+            var timestamp = new Date().getTime(); // Agregar un timestamp para evitar la caché
             img.src = '../static/received.gif?' + timestamp;
         }
 
