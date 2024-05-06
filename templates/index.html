@@ -50,16 +50,7 @@
             });
         }
 
-        function loadActionsChart() {
-            $.ajax({
-                url: '/todas_las_acciones',
-                type: 'GET',
-                success: function(data) {
-                    console.log(data);
-                }
-            });
-            
-        }
+        
 
     
        
@@ -150,12 +141,7 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col">
-                        <!-- Utiliza las clases display-4 y fs-10 para el título -->
-                        <h1 class="display-5 fs-10">Acciones Monitoreadas</h1>
-                        <canvas id="actions-chart"></canvas>
-                    </div>
+                
 
             
                 
