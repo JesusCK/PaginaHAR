@@ -123,6 +123,10 @@ def index():
 def research():
     return render_template('research.html')
 
+@app.route('/registro')
+def registro():
+    return render_template('register.html')
+
 from flask import make_response
 
 @app.after_request
