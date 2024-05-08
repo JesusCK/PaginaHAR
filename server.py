@@ -1,16 +1,23 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import os
 from twilio.rest import Client
-from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMAIL_USER, EMAIL_PASSWORD
 app = Flask(__name__)
 
 actions = []
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = {'gif'}
 
+destinatario_alerta = None
+
 account_sid = ACOUNT_SID
 auth_token = AUTH_TOKEN
 client = Client(account_sid, auth_token)
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  # El puerto para el servidor SMTP
 
 import mysql.connector
 
@@ -89,6 +96,8 @@ def receive_data():
                 body='Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net',
                 to='+573003887981'
             )
+            send_email(destinatario_alerta, 'Alerta de Caída', 'Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net')
+
             print(message.sid)
         date = request.json['date']
         actions.append({'action': action, 'date': date})
@@ -136,17 +145,30 @@ def add_header(response):
 
 @app.route('/ingreso', methods=['POST'])
 def ingreso():
-    if request.json and 'email' in request.json and 'password' in request.json:
-        email = request.json['email']
-        password = request.json['password']
-        
-        # Process the received email and password data
-        # ...
-        print(email, password)
-        # Redirect to the index2 page
+    global destinatario_alerta
+    if request.json and 'email' in request.json:
+        destinatario_alerta = request.json['email']
+        return 'Dirección de correo electrónico recibida correctamente.'
     else:
-        return 'Incorrect request.', 400
-    # Consulta para obtener todas las acciones y fechas desde el inicio hasta el último dato recibido
+        return 'Solicitud incorrecta.', 400
+
+
+def send_email(to_email, subject, body):
+    msg = MIMEMultipart()
+    msg['From'] = EMAIL_USER
+    msg['To'] = to_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+        server.starttls()
+        server.login(EMAIL_USER, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_USER, to_email, msg.as_string())
+        server.quit()
+        print("Correo electrónico enviado correctamente a", to_email)
+    except Exception as e:
+        print("Error al enviar el correo electrónico:", str(e))
 
 
 if __name__ == '__main__':
