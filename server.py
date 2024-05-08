@@ -148,9 +148,10 @@ def ingreso():
     global destinatario_alerta
     if request.json and 'email' in request.json:
         destinatario_alerta = request.json['email']
-        return 'Dirección de correo electrónico recibida correctamente.'
+        return redirect(url_for('index2'))
     else:
         return 'Solicitud incorrecta.', 400
+    
 
 
 def send_email(to_email, subject, body):
