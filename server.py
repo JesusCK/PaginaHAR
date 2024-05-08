@@ -63,7 +63,8 @@ def registrar_destinatario():
         email = request.json['email']
         destinatarios_alerta = get_destinatarios_alerta()
         destinatarios_alerta.append(email)
-        session.modified = True  # Marcar la sesión como modificada
+        session.modified = True
+        print(destinatario_alerta)  # Marcar la sesión como modificada
         return 'Destinatario registrado correctamente.'
     else:
         return 'Solicitud incorrecta.', 400
@@ -77,6 +78,7 @@ def salir_de_alertas():
         if email in destinatarios_alerta:
             destinatarios_alerta.remove(email)
             session.modified = True
+            print(destinatario_alerta)
     return redirect(url_for('pagina_principal'))
 
 # Función para enviar alertas de caída
