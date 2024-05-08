@@ -1,17 +1,18 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import os
 from twilio.rest import Client
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMAIL_USER, EMAIL_PASSWORD
+import secrets
+
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
 
 actions = []
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = {'gif'}
-
-destinatario_alerta = None
 
 account_sid = ACOUNT_SID
 auth_token = AUTH_TOKEN
@@ -31,6 +32,71 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+# Función para enviar correos electrónicos
+def send_email(to_email, subject, body):
+    msg = MIMEMultipart()
+    msg['From'] = EMAIL_USER
+    msg['To'] = to_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+        server.starttls()
+        server.login(EMAIL_USER, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_USER, to_email, msg.as_string())
+        server.quit()
+        print("Correo electrónico enviado correctamente a", to_email)
+    except Exception as e:
+        print("Error al enviar el correo electrónico:", str(e))
+
+# Lista en memoria para almacenar los destinatarios de alertas
+def get_destinatarios_alerta():
+    if 'destinatarios_alerta' not in session:
+        session['destinatarios_alerta'] = []
+    return session['destinatarios_alerta']
+
+# Ruta para registrar nuevos destinatarios de alertas
+@app.route('/registrar_destinatario', methods=['POST'])
+def registrar_destinatario():
+    if request.json and 'email' in request.json:
+        email = request.json['email']
+        destinatarios_alerta = get_destinatarios_alerta()
+        destinatarios_alerta.append(email)
+        session.modified = True  # Marcar la sesión como modificada
+        return 'Destinatario registrado correctamente.'
+    else:
+        return 'Solicitud incorrecta.', 400
+
+# Ruta para salir de la lista de destinatarios de alertas
+@app.route('/salir_de_alertas', methods=['POST'])
+def salir_de_alertas():
+    if 'email' in session:
+        email = session['email']
+        destinatarios_alerta = get_destinatarios_alerta()
+        if email in destinatarios_alerta:
+            destinatarios_alerta.remove(email)
+            session.modified = True
+    return redirect(url_for('pagina_principal'))
+
+# Función para enviar alertas de caída
+def enviar_alerta_de_caída():
+    asunto = 'Alerta de Caída'
+    cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona.'
+    destinatarios_alerta = get_destinatarios_alerta()
+    for destinatario in destinatarios_alerta:
+        send_email(destinatario, asunto, cuerpo)
+
+# Ruta para la página de configuración de alertas
+@app.route('/configuracion_alertas')
+def configuracion_alertas():
+    return render_template('configuracion_alertas.html')
+
+# Ruta de la página principal
+@app.route('/')
+def pagina_principal():
+    return render_template('lpage.html')
+
 # Ruta para manejar la consulta de históricos
 @app.route('/consultar_historicos', methods=['POST'])
 def consultar_historicos():
@@ -39,9 +105,8 @@ def consultar_historicos():
         fecha_inicio = request.form['fecha_inicio']
         fecha_fin = request.form['fecha_fin']
         accion = request.form.get('accion')  # Obtener la acción seleccionada
-
         
-# Construir la consulta SQL con el filtro de acción
+        # Construir la consulta SQL con el filtro de acción
         if accion:
             query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s AND accion = %s ORDER BY fecha DESC"
             cursor.execute(query, (fecha_inicio, fecha_fin, accion))
@@ -75,7 +140,6 @@ def get_actions():
     # Devuelve las últimas dos acciones como JSON
     return jsonify({'actions': actions[-2:]})
 
-
 @app.route('/upload', methods=['POST'])
 def gifreceived():
     if 'file' in request.files:
@@ -83,7 +147,6 @@ def gifreceived():
         file = request.files['file']
         file.save('static/received.gif')
         return 'GIF file received correctly.' 
-
 
 @app.route('/receive_data', methods=['POST'])
 def receive_data():    
@@ -111,7 +174,7 @@ def receive_data():
         return 'Action and date received correctly.'
     else:
         return 'Incorrect request.', 400
-    
+
 @app.route('/last_fall_date')
 def last_fall_date():
     # Query the database for the latest fall action
@@ -124,9 +187,6 @@ def last_fall_date():
         return jsonify({'last_fall_date': result[0]})
     else:
         return 'No fall action found.', 404
-@app.route('/')
-def index():
-    return render_template('lpage.html')
 
 @app.route('/research')
 def research():
@@ -148,32 +208,10 @@ def ingreso():
     global destinatario_alerta
     if request.json and 'email' in request.json:
         destinatario_alerta = request.json['email']
+        session['email'] = destinatario_alerta  # Guardar el email en la sesión
         return redirect(url_for('index2'))
     else:
         return 'Solicitud incorrecta.', 400
-    
-
-
-def send_email(to_email, subject, body):
-    msg = MIMEMultipart()
-    msg['From'] = EMAIL_USER
-    msg['To'] = to_email
-    msg['Subject'] = subject
-    msg.attach(MIMEText(body, 'plain'))
-
-    try:
-        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
-        server.starttls()
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        server.sendmail(EMAIL_USER, to_email, msg.as_string())
-        server.quit()
-        print("Correo electrónico enviado correctamente a", to_email)
-    except Exception as e:
-        print("Error al enviar el correo electrónico:", str(e))
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
-
-    
-
