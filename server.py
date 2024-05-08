@@ -134,6 +134,19 @@ def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
 
+
+@app.route('/ingreso', methods=['POST'])
+def ingreso():
+    if request.json and 'email' in request.json and 'password' in request.json:
+        email = request.json['email']
+        password = request.json['password']
+        
+        # Process the received email and password data
+        # ...
+        print(email, password)
+        return 'Data received successfully.'
+    else:
+        return 'Incorrect request.', 400
     # Consulta para obtener todas las acciones y fechas desde el inicio hasta el último dato recibido
 
 
