@@ -66,7 +66,7 @@ def registrar_destinatario():
         destinatarios_alerta.append(email)
         session.modified = True
         print(session)  # Marcar la sesión como modificada
-        return redirect(url_for('index2'))
+        return redirect(url_for('monitoreo_acciones'))
     else:
         return 'Solicitud incorrecta.', 400
 
@@ -131,7 +131,7 @@ def historicos():
     return render_template('historicos.html')
 
 @app.route('/index')
-def index2():
+def monitoreo_acciones():
     return render_template('index.html', actions=actions)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
