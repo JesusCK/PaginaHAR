@@ -83,6 +83,9 @@ def salir_de_alertas():
             destinatarios_alerta.remove(email[0])
             session.modified = True
             print(destinatarios_alerta)
+            if not destinatarios_alerta:
+                session.pop('destinatarios_alerta', None)
+                print(session)
     return redirect(url_for('pagina_principal'))
 
 # Función para enviar alertas de caída
