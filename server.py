@@ -208,16 +208,7 @@ def add_header(response):
     response.headers['Cache-Control'] = 'no-store'
     return response
 
-@app.route('/ingreso', methods=['POST'])
-def ingreso():
-    global destinatario_alerta
-    if request.json and 'email' in request.json:
-        destinatario_alerta = request.json['email']
-        session['email'] = destinatario_alerta 
-        print(session) # Guardar el email en la sesión
-        return redirect(url_for('index2'))
-    else:
-        return 'Solicitud incorrecta.', 400
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
