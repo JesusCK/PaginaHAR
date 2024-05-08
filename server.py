@@ -64,7 +64,7 @@ def registrar_destinatario():
         destinatarios_alerta = get_destinatarios_alerta()
         destinatarios_alerta.append(email)
         session.modified = True
-        print(destinatarios_alerta)  # Marcar la sesión como modificada
+        print(session)  # Marcar la sesión como modificada
         return 'Destinatario registrado correctamente.'
     else:
         return 'Solicitud incorrecta.', 400
@@ -180,6 +180,7 @@ def receive_data():
 
 @app.route('/last_fall_date')
 def last_fall_date():
+    print(session)
     # Query the database for the latest fall action
     query = "SELECT fecha FROM registro WHERE accion = 'Alerta de Caida' ORDER BY fecha DESC LIMIT 1"
     cursor.execute(query)
