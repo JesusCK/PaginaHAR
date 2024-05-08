@@ -79,8 +79,7 @@ def salir_de_alertas():
         print(email)
         destinatarios_alerta = get_destinatarios_alerta()
         print(destinatarios_alerta)
-        if email in destinatarios_alerta:
-            print(2)
+        if email == destinatarios_alerta:
             destinatarios_alerta.remove(email)
             session.modified = True
             print(destinatarios_alerta)
