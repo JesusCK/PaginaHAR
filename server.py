@@ -73,8 +73,8 @@ def registrar_destinatario():
 # Ruta para salir de la lista de destinatarios de alertas
 @app.route('/salir_de_alertas', methods=['POST'])
 def salir_de_alertas():
-    if 'email' in session:
-        email = session['email']
+    if 'destinatarios_alerta' in session:
+        email = session['destinatarios_alerta']
         destinatarios_alerta = get_destinatarios_alerta()
         if email in destinatarios_alerta:
             destinatarios_alerta.remove(email)
