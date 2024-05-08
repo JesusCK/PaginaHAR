@@ -143,7 +143,7 @@ def ingreso():
         # Process the received email and password data
         # ...
         print(email, password)
-        return redirect(url_for('/index'))  # Redirect to the index2 page
+        return redirect(url_for('index'))  # Redirect to the index2 page
     else:
         return 'Incorrect request.', 400
     # Consulta para obtener todas las acciones y fechas desde el inicio hasta el último dato recibido
