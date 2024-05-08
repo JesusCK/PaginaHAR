@@ -211,7 +211,8 @@ def ingreso():
     global destinatario_alerta
     if request.json and 'email' in request.json:
         destinatario_alerta = request.json['email']
-        session['email'] = destinatario_alerta  # Guardar el email en la sesión
+        session['email'] = destinatario_alerta 
+        print(session) # Guardar el email en la sesión
         return redirect(url_for('index2'))
     else:
         return 'Solicitud incorrecta.', 400
