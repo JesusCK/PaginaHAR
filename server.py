@@ -80,7 +80,7 @@ def salir_de_alertas():
         destinatarios_alerta = get_destinatarios_alerta()
         print(destinatarios_alerta)
         if email == destinatarios_alerta:
-            destinatarios_alerta.remove(email)
+            destinatarios_alerta.remove(email[0])
             session.modified = True
             print(destinatarios_alerta)
     return redirect(url_for('pagina_principal'))
