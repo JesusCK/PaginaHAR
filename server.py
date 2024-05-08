@@ -61,6 +61,7 @@ def get_destinatarios_alerta():
 def registrar_destinatario():
     if request.json and 'email' in request.json:
         email = request.json['email']
+        print(email)
         destinatarios_alerta = get_destinatarios_alerta()
         destinatarios_alerta.append(email)
         session.modified = True
