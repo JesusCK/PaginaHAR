@@ -8,7 +8,7 @@ from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMA
 import secrets
 
 app = Flask(__name__)
-#app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
+app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
 
 actions = []
 UPLOAD_FOLDER = 'static'
