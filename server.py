@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import os
 from twilio.rest import Client
 from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE
@@ -143,7 +143,7 @@ def ingreso():
         # Process the received email and password data
         # ...
         print(email, password)
-        return redirect('/index')  # Redirect to the index page
+        return redirect(url_for('index'))  # Redirect to the index page
     else:
         return 'Incorrect request.', 400
     # Consulta para obtener todas las acciones y fechas desde el inicio hasta el último dato recibido
