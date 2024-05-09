@@ -95,7 +95,7 @@ def salir_de_alertas():
 # Función para enviar alertas de caída
 def enviar_alerta_de_caída():
     asunto = 'Alerta de Caída'
-    cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net'
+    cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index'
     print(session)
     destinatarios_alerta = get_destinatarios_alerta()
     print("enviar alerta de caida")
