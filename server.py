@@ -93,9 +93,12 @@ def enviar_alerta_de_caída():
     asunto = 'Alerta de Caída'
     cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net'
     destinatarios_alerta = get_destinatarios_alerta()
+    print("enviar alerta de caida")
+    print(destinatarios_alerta)
     for destinatario in destinatarios_alerta:
         print(destinatario)
         send_email(destinatario, asunto, cuerpo)
+        print("enviado")
 
 # Ruta para la página de configuración de alertas
 @app.route('/configuracion_alertas')
