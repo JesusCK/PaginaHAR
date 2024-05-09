@@ -170,7 +170,7 @@ def receive_data():
                 to='+573003887981'
             )
             destinatarios_alerta = get_destinatarios_alerta()
-            send_email(destinatarios_alerta[0], 'Alerta de Caída', 'Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net')
+            send_email(destinatarios_alerta, 'Alerta de Caída', 'Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net')
 
             print(message.sid)
         date = request.json['date']
