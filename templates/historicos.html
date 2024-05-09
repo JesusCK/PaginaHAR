@@ -126,6 +126,9 @@
 
         var fechaActual = new Date();
 
+        // Restar cinco horas a la fecha actual
+        fechaActual.setHours(fechaActual.getHours() - 5);
+
         // Formatear la fecha y hora actual en un formato que acepte el input datetime-local
         var formattedDate = fechaActual.toISOString().slice(0,16); // Formato YYYY-MM-DDTHH:MM
 
