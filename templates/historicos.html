@@ -60,9 +60,9 @@
         <form class="container">
             <div class="form-group">
                 <label for="fecha_inicio">Fecha de inicio:</label><br>
-                <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control" value="2024-04-27T00:00" required step="900"><br>
+                <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control" value="2024-04-27T00:00" required step="1200"><br>
                 <label for="fecha_fin">Fecha de fin:</label><br>
-                <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control" value="2024-05-01T23:59" required step="900"><br>
+                <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control" value="${new Date().toISOString().slice(0, 16)}" required step="1200"><br>
             </div>
 
             <div class="form-group">
