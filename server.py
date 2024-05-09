@@ -66,7 +66,9 @@ def registrar_destinatario():
         destinatarios_alerta = get_destinatarios_alerta()
         destinatarios_alerta.append(email)
         session.modified = True
-        print(session)  # Marcar la sesión como modificada
+        print(session) 
+        destinatario = session['destinatarios_alerta']
+        print(destinatario) # Marcar la sesión como modificada
         return redirect(url_for('monitoreo_acciones'))
     else:
         return 'Solicitud incorrecta.', 400
