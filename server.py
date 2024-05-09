@@ -169,14 +169,8 @@ def receive_data():
         # Handle the receipt of predicted actions in JSON format
         action = request.json['action']
         if action == 'Alerta de Caida':
-            message = client.messages.create(
-                from_='+16146109328',
-                body='Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net',
-                to='+573003887981'
-            )
             enviar_alerta_de_caída()
 
-            print(message.sid)
         date = request.json['date']
         actions.append({'action': action, 'date': date})
 
