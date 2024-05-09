@@ -67,7 +67,7 @@ def registrar_destinatario():
         destinatarios_alerta.append(email)
         session.modified = True
         print(session) 
-        destinatario = session['destinatarios_alerta']
+        destinatario = session['destinatarios_alerta'][0]
         print(destinatario) # Marcar la sesión como modificada
         return redirect(url_for('monitoreo_acciones'))
     else:
