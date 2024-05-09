@@ -171,7 +171,7 @@ def receive_data():
     if request.json and 'action' in request.json and 'date' in request.json:
         # Handle the receipt of predicted actions in JSON format
         action = request.json['action']
-        if action == 'Alerta de Caida':
+        if action == 'Alerta de Caída':
             enviar_alerta_de_caída()
 
         date = request.json['date']
