@@ -80,6 +80,7 @@ def salir_de_alertas():
         print(1)
         email = session['destinatarios_alerta']
         print(email)
+        destinatario.clear()
         destinatarios_alerta = get_destinatarios_alerta()
         print(destinatarios_alerta)
         if email == destinatarios_alerta:
@@ -102,7 +103,6 @@ def enviar_alerta_de_caída():
     if destinatario!=[]:
         print(destinatario)
         send_email(destinatario[0], asunto, cuerpo)
-        destinatario.clear()
         print("enviado")
 
 # Ruta para la página de configuración de alertas
