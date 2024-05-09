@@ -62,7 +62,7 @@
                 <label for="fecha_inicio">Fecha de inicio:</label><br>
                 <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control" value="2024-04-27T00:00" required step="1200"><br>
                 <label for="fecha_fin">Fecha de fin:</label><br>
-                <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control" value="${new Date().toISOString().slice(0, 16)}" required step="1200"><br>
+                <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control"  required step="1200"><br>
             </div>
 
             <div class="form-group">
@@ -123,6 +123,14 @@
 
 
     <script>
+
+        var fechaActual = new Date();
+
+        // Formatear la fecha y hora actual en un formato que acepte el input datetime-local
+        var formattedDate = fechaActual.toISOString().slice(0,16); // Formato YYYY-MM-DDTHH:MM
+
+        // Asignar el valor predeterminado al input datetime-local
+        document.getElementById('fecha_fin').value = formattedDate;
         var resultados = []; // Variable para almacenar todos los resultados de la consulta
         var paginaActual = 0; // Variable para almacenar la página actual de resultados
         var resultadosPorPagina = 10; // Número de resultados a mostrar por página
