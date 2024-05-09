@@ -53,6 +53,7 @@ def send_email(to_email, subject, body):
 # Lista en memoria para almacenar los destinatarios de alertas
 def get_destinatarios_alerta():
     if 'destinatarios_alerta' not in session:
+        print('paso por aqui')
         session['destinatarios_alerta'] = []
     return session['destinatarios_alerta']
 
