@@ -91,7 +91,7 @@ def salir_de_alertas():
 # Función para enviar alertas de caída
 def enviar_alerta_de_caída():
     asunto = 'Alerta de Caída'
-    cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona.'
+    cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net'
     destinatarios_alerta = get_destinatarios_alerta()
     for destinatario in destinatarios_alerta:
         print(destinatario)
@@ -169,9 +169,7 @@ def receive_data():
                 body='Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net',
                 to='+573003887981'
             )
-            destinatarios_alerta = get_destinatarios_alerta()
-            print(destinatarios_alerta)
-            send_email(destinatarios_alerta, 'Alerta de Caída', 'Alerta de Caida por favor verifique el estado de la persona. http://seniorsafe.ddns.net')
+            enviar_alerta_de_caída()
 
             print(message.sid)
         date = request.json['date']
