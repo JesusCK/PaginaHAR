@@ -9,7 +9,7 @@ import secrets
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
-
+destinatario = []
 actions = []
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = {'gif'}
@@ -67,7 +67,7 @@ def registrar_destinatario():
         destinatarios_alerta.append(email)
         session.modified = True
         print(session) 
-        destinatario = session['destinatarios_alerta'][0]
+        destinatario.append(session['destinatarios_alerta'][0])
         print(destinatario) # Marcar la sesión como modificada
         return redirect(url_for('monitoreo_acciones'))
     else:
@@ -99,9 +99,10 @@ def enviar_alerta_de_caída():
     destinatarios_alerta = get_destinatarios_alerta()
     print("enviar alerta de caida")
     print(destinatarios_alerta)
-    for destinatario in destinatarios_alerta:
+    if not destinatario.empty():
         print(destinatario)
-        send_email(destinatario, asunto, cuerpo)
+        send_email(destinatario[0], asunto, cuerpo)
+        destinatario.clear()
         print("enviado")
 
 # Ruta para la página de configuración de alertas
