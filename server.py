@@ -99,7 +99,7 @@ def enviar_alerta_de_caída():
     destinatarios_alerta = get_destinatarios_alerta()
     print("enviar alerta de caida")
     print(destinatarios_alerta)
-    if not destinatario.empty():
+    if destinatario!=[]:
         print(destinatario)
         send_email(destinatario[0], asunto, cuerpo)
         destinatario.clear()
