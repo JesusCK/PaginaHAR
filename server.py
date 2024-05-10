@@ -115,6 +115,10 @@ def configuracion_alertas():
 def pagina_principal():
     return render_template('lpage.html')
 
+@app.route('/prueba')
+def prueba():
+    return render_template('prueba.html')
+
 # Ruta para manejar la consulta de históricos
 @app.route('/consultar_historicos', methods=['POST'])
 def consultar_historicos():

@@ -1,0 +1,45 @@
+<label for="fecha_inicio">Fecha de inicio:</label><br>
+<input type="text" id="fecha_inicio" class="form-control" readonly><br>
+
+<label for="fecha_fin">Fecha de fin:</label><br>
+<input type="text" id="fecha_fin" class="form-control" readonly><br>
+
+<script>
+    mobiscroll.datepicker('#fecha_inicio', {
+        onSet: function (event, inst) {
+            // Obtener la fecha seleccionada en la primera entrada
+            var selectedDateInicio = new Date(event.valueText);
+            // Obtener la fecha seleccionada en la segunda entrada
+            var selectedDateFin = new Date(inst.getVal());
+
+            // Actualizar la fecha mínima en la segunda entrada para que sea igual o después de la fecha seleccionada en la primera entrada
+            inst.option({
+                min: selectedDateInicio
+            });
+
+            // Actualizar la fecha en la segunda entrada si es anterior a la fecha seleccionada en la primera entrada
+            if (selectedDateFin < selectedDateInicio) {
+                inst.setVal(selectedDateInicio, true);
+            }
+        }
+    });
+
+    mobiscroll.datepicker('#fecha_fin', {
+        onSet: function (event, inst) {
+            // Obtener la fecha seleccionada en la segunda entrada
+            var selectedDateFin = new Date(event.valueText);
+            // Obtener la fecha seleccionada en la primera entrada
+            var selectedDateInicio = new Date(inst.getVal());
+
+            // Actualizar la fecha máxima en la primera entrada para que sea igual o antes de la fecha seleccionada en la segunda entrada
+            inst.option({
+                max: selectedDateFin
+            });
+
+            // Actualizar la fecha en la primera entrada si es posterior a la fecha seleccionada en la segunda entrada
+            if (selectedDateInicio > selectedDateFin) {
+                inst.setVal(selectedDateFin, true);
+            }
+        }
+    });
+</script>
