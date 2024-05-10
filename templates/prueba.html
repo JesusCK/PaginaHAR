@@ -4,30 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/@mobiscroll/css/dist/css/mobiscroll.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@mobiscroll/js/dist/js/mobiscroll.min.js"></script>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 </head>
 <body>
+    <input type="text" name="datetimes" />
 
-<div id="range"></div>
-<label>
-    Start
-    <input id="start" mbsc-input placeholder="Please select..." />
-</label>
-<label>
-    End
-    <input id="end" mbsc-input placeholder="Please select..." />
-</label>
-
-<script>
-    mobiscroll.datepicker('#range', {
-    controls: ['calendar', 'time'],
-    select: 'range',
-    startInput: '#start',
-    endInput: '#end',
-    touchUi: true
-});
-</script>
+    <script>
+    $(function() {
+      $('input[name="datetimes"]').daterangepicker({
+        timePicker: true,
+        startDate: moment().startOf('hour'),
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        locale: {
+          format: 'M/DD hh:mm A'
+        }
+      });
+    });
+    </script>
 </body>
 </html>
