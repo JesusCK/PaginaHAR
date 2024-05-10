@@ -129,6 +129,12 @@
 
 
     <script>
+        $(function () {
+            $('#fecha_inicio').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm',
+            stepping: 10 // Define el intervalo de minutos
+            });
+        });
 
         var fechaActual = new Date();
 
