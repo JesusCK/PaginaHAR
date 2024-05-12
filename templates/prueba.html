@@ -18,13 +18,15 @@
     $(function() {
         $('input[name="datetimes"]').daterangepicker({
             timePicker: true,
+            "timePickerIncrement": 10,
             startDate: moment().startOf('hour'),
             endDate: moment().startOf('hour').add(32, 'hour'),
             locale: {
                 format: 'DD-MM-YYYY hh:mm'
             }
+        }, function(start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
-        console.log("Result: ", $('input[name="datetimes"]').val());
     });
     </script>
     </script>
