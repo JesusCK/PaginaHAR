@@ -133,8 +133,8 @@ def consultar_historicos():
         
         # Convertir las fechas de inicio y fin a formato datetime
         
-        fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M:%S')
-        fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M:%S')
+        fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M')
+        fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M')
         #print(datetimes)
         print(fecha_inicio)
 
