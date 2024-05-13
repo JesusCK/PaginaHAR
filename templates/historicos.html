@@ -62,15 +62,7 @@
         </div>
         <form class="container">
             <div class="form-group">
-                <div class="row">
-                <div class="col-6">
-                <label for="fecha_inicio">Fecha de inicio:</label><br>
-                <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" class="form-control" value="2024-04-27T00:00" required step="600"><br>
-                </div>
-                <div class="col-6">
-                <label for="fecha_fin">Fecha de fin:</label><br>
-                <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control" value="2024-04-27T00:00" required ><br>
-                </div>
+                <input type="text" name="datetimes" class="form-control"/>
                 </div>
             </div>
 
@@ -133,25 +125,20 @@
 
 
     <script>
-        $(function() {
-        $('input[name="datetimes"]').daterangepicker({
-            timePicker: true,
-            "timePickerIncrement": 10,
-            startDate: '27-04-2024',
-            endDate: moment().startOf('hour'),
-            locale: {
-                format: 'DD-MM-YYYY hh:mm'
-            }
-        });
+       
+       $(function() {
+            $('input[name="datetimes"]').daterangepicker({
+                timePicker: true,
+                "timePickerIncrement": 10,
+                startDate: '27-04-2024',
+                endDate: moment().startOf('hour'),
+                locale: {
+                    format: 'DD-MM-YYYY hh:mm'
+                }
+            });
 
-        $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
-            console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY hh:mm') + ' to ' + picker.endDate.format('DD-MM-YYYY hh:mm'));
-        });
-    });
-        $(function () {
-            $('#fecha_inicio').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm',
-            stepping: 10 // Define el intervalo de minutos
+            $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+                console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY hh:mm') + ' to ' + picker.endDate.format('DD-MM-YYYY hh:mm'));
             });
         });
 
