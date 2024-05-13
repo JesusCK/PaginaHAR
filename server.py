@@ -124,7 +124,7 @@ def prueba():
 def consultar_historicos():
     if request.method == 'POST':
         # Obtener las fechas de inicio y fin del formulario
-        fecha = request.form
+        fecha = request.form.get('fecha')
         accion = request.form.get('accion')
         print(fecha)  # Obtener la acción seleccionada
         
