@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMAIL_USER, EMAIL_PASSWORD
 import secrets
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
@@ -126,6 +127,10 @@ def consultar_historicos():
         # Obtener las fechas de inicio y fin del formulario
         datetimes = request.form['datetimes']
         fecha_inicio, fecha_fin = datetimes.split(' - ')
+        # Convertir las fechas de inicio y fin a formato datetime
+
+        fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M:%S')
+        fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M:%S')
         print(datetimes)
         print(fecha_inicio)
         #fecha_inicio = request.form['fecha_inicio']
@@ -218,6 +223,7 @@ def registro():
     return render_template('register.html')
 
 from flask import make_response
+from datetime import datetime
 
 @app.after_request
 def add_header(response):
