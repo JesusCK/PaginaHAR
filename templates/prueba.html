@@ -304,8 +304,8 @@
         document.querySelector('form').addEventListener('submit', function(e) {
                     e.preventDefault(); // Evitar que se recargue la página
                     var Datetimes = document.querySelector('#datetimes').value;
-                    var fechaInicio = Datetimes.split('-')[0].trim();
-                    var fechaFin = Datetimes.split('-')[1].trim();
+                    var fechaInicio = Datetimes.split(' - ')[0].trim();
+                    var fechaFin = Datetimes.split(' - ')[1].trim();
 
                     console.log(fechaInicio, fechaFin);
                     //var fechaInicio = new Date(document.querySelector('#fecha_inicio').value);
