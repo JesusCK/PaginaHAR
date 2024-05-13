@@ -309,6 +309,10 @@
                     var fechaInicio = splited[0].trim();
                     var fechaFin = splited[1].trim();
 
+                    fechaInicio = new Date(fechaInicio);
+                    fechaFin = new Date(fechaFin);
+
+
                     console.log(fechaInicio, fechaFin);
                     //var fechaInicio = new Date(document.querySelector('#fecha_inicio').value);
                     //var fechaFin = new Date(document.querySelector('#fecha_fin').value);
