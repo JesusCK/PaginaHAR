@@ -141,7 +141,7 @@ def consultar_historicos():
         
         # fecha_inicio = request.form['fecha_inicio']
         # fecha_fin = request.form['fecha_fin']
-        # accion = request.form.get('accion')  # Obtener la acción seleccionada
+        accion = request.form.get('accion')  # Obtener la acción seleccionada
         #print(datetimes)
         print(fecha_inicio)
         # Construir la consulta SQL con el filtro de acción
