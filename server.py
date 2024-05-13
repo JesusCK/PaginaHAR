@@ -135,6 +135,8 @@ def consultar_historicos():
         
         fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M')
         fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M')
+        fecha_inicio = fecha_inicio.strftime('%y-%m-%dT%H:%M')
+        fecha_fin = fecha_fin.strftime('%y-%m-%dT%H:%M')
         #print(datetimes)
         print(fecha_inicio)
 
