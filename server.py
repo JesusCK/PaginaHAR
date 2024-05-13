@@ -125,23 +125,23 @@ def prueba():
 def consultar_historicos():
     if request.method == 'POST':
         # Obtener las fechas de inicio y fin del formulario
-        #datetimes = request.form['datetimes']
-        #fecha_inicio, fecha_fin = datetimes.split(' - ')
+        datetimes = request.form['datetimes']
+        fecha_inicio, fecha_fin = datetimes.split(' - ')
         #fecha_inicio += ':00'
         #fecha_fin += ':00'
         
         
         # Convertir las fechas de inicio y fin a formato datetime
         
-        #fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M:%S')
-        #fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M:%S')
+        fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M:%S')
+        fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M:%S')
         #print(datetimes)
-        #print(fecha_inicio)
+        print(fecha_inicio)
 
         
-        fecha_inicio = request.form['fecha_inicio']
-        fecha_fin = request.form['fecha_fin']
-        accion = request.form.get('accion')  # Obtener la acción seleccionada
+        # fecha_inicio = request.form['fecha_inicio']
+        # fecha_fin = request.form['fecha_fin']
+        # accion = request.form.get('accion')  # Obtener la acción seleccionada
         #print(datetimes)
         print(fecha_inicio)
         # Construir la consulta SQL con el filtro de acción
