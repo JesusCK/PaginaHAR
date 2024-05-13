@@ -127,12 +127,16 @@ def consultar_historicos():
         # Obtener las fechas de inicio y fin del formulario
         datetimes = request.form['datetimes']
         fecha_inicio, fecha_fin = datetimes.split(' - ')
+        
         # Convertir las fechas de inicio y fin a formato datetime
-
-        fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M')
-        fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M')
+        fecha_inicio = fecha_inicio.replace(second=0)
+        fecha_fin = fecha_fin.replace(second=0)
+        fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M:%S')
+        fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M:%S')
         print(datetimes)
         print(fecha_inicio)
+
+        
         #fecha_inicio = request.form['fecha_inicio']
         #fecha_fin = request.form['fecha_fin']
         accion = request.form.get('accion')  # Obtener la acción seleccionada
