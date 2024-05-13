@@ -124,17 +124,17 @@ def prueba():
 def consultar_historicos():
     if request.method == 'POST':
         # Obtener las fechas de inicio y fin del formulario
-        fecha_inicio = request.form['fecha_inicio']
-        fecha_fin = request.form['fecha_fin']
-        accion = request.form.get('accion')  # Obtener la acción seleccionada
+        fecha = request.form['fecha']
+        accion = request.form.get('accion')
+        print(fecha)  # Obtener la acción seleccionada
         
         # Construir la consulta SQL con el filtro de acción
         if accion:
             query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s AND accion = %s ORDER BY fecha DESC"
-            cursor.execute(query, (fecha_inicio, fecha_fin, accion))
+            cursor.execute(query, (fecha, fecha, accion))
         else:
             query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s ORDER BY fecha DESC"
-            cursor.execute(query, (fecha_inicio, fecha_fin))
+            cursor.execute(query, (fecha, fecha))
 
         resultados = cursor.fetchall()
 
