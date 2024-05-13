@@ -127,10 +127,12 @@ def consultar_historicos():
         # Obtener las fechas de inicio y fin del formulario
         datetimes = request.form['datetimes']
         fecha_inicio, fecha_fin = datetimes.split(' - ')
+        fecha_inicio += ' 00:00:00'
+        fecha_fin += ' 23:59:59'
+        
         
         # Convertir las fechas de inicio y fin a formato datetime
-        fecha_inicio = fecha_inicio.replace(second=0)
-        fecha_fin = fecha_fin.replace(second=0)
+        
         fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M:%S')
         fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M:%S')
         print(datetimes)
