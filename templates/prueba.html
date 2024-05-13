@@ -315,6 +315,8 @@
                     var fechaInicio = splited[0].trim();
                     var fechaFin = splited[1].trim();
 
+                    var fechaDataInit = new Date('29-4-2024 11:35:07')
+
                     fechaInicio = new Date(fechaInicio);
                     fechaFin = new Date(fechaFin);
 
@@ -337,6 +339,10 @@
                     
                     if (fechaInicio.getDate() === fechaFin.getDate() && fechaInicio.getHours() > fechaFin.getHours()) {
                         alert('La hora de inicio no puede ser mayor a la hora de fin en la misma fecha.');
+                        return;
+                    }
+                    if (fechaFin < fechaDataInit) {
+                        alert('No hay datos en este rango de fechas');
                         return;
                     }
                     
