@@ -304,6 +304,8 @@
         document.querySelector('form').addEventListener('submit', function(e) {
                     e.preventDefault(); // Evitar que se recargue la página
                     var Datetimes = document.querySelector('#datetimes').value;
+                    var splited = Datetimes.split(' - ');
+                    console.log(splited);
                     var fechaInicio = Datetimes.split(' - ')[0].trim();
                     var fechaFin = Datetimes.split(' - ')[1].trim();
 
