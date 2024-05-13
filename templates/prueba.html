@@ -294,6 +294,7 @@
                 generarGraficaCircular(resultados);
             } else {
                 document.querySelector('#resultados tbody').innerHTML = '<tr><td colspan="2">No se encontraron resultados.</td></tr>';
+                alert('No se encontraron resultados en el rango de fechas especificado.');
             }
             })
             .catch(error => {
