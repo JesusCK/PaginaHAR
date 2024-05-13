@@ -281,7 +281,7 @@
         document.querySelector('form').addEventListener('submit', function(e) {
             //e.preventDefault(); // Evitar que se recargue la página
             var formData = new FormData(this);
-            console.log(formData);
+            console.log(formData.get('datetimes'));
             fetch('/consultar_historicos', {
             method: 'POST',
             body: formData
