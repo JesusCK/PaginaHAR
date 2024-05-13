@@ -292,7 +292,12 @@
                 resultados = data.resultados; // Almacenar los resultados de la consulta
                 actualizarTabla(resultados);
                 generarGraficaCircular(resultados);
-            } else {
+            }
+            else if (data.resultados.length == 0){
+                alert('No se encontraron resultados en el rango de fechas especificado.');
+            }  
+            
+            else {
                 document.querySelector('#resultados tbody').innerHTML = '<tr><td colspan="2">No se encontraron resultados.</td></tr>';
                 alert('No se encontraron resultados en el rango de fechas especificado.');
             }
