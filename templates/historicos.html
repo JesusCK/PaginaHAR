@@ -62,7 +62,7 @@
         </div>
         <form class="container">
             <div class="form-group">
-                <label for="datetimes" class="form-label">Fecha:</label>
+                <label for="date" class="form-label">Fecha:</label>
                 <input type="text" name="datetimes" class="form-control" id="fecha"/>
             </div>
 
@@ -281,7 +281,7 @@
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault(); // Evitar que se recargue la página
             var formData = new FormData(this);
-            console.log(formData);
+            console.log(formData)
             fetch('/consultar_historicos', {
             method: 'POST',
             body: formData
