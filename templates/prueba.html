@@ -303,8 +303,11 @@
 
         document.querySelector('form').addEventListener('submit', function(e) {
                     e.preventDefault(); // Evitar que se recargue la página
-                    var fechaInicio = new Date(document.querySelector('#fecha_inicio').value);
-                    var fechaFin = new Date(document.querySelector('#fecha_fin').value);
+                    var Datetimes = document.querySelector('#datetimes').value;
+                    var fechaInicio = Datetimes.split('-')[0].trim();
+                    var fechaFin = Datetimes.split('-')[1].trim();
+                    //var fechaInicio = new Date(document.querySelector('#fecha_inicio').value);
+                    //var fechaFin = new Date(document.querySelector('#fecha_fin').value);
                     var fechaActual = new Date();
                     
                     if (fechaInicio > fechaActual) {
