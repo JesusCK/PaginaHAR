@@ -217,6 +217,7 @@ def check_session():
     
 @app.route('/enviar_email', methods=['POST'])
 def enviar_email():
+    print(session)
     if 'email' in session:
         email = session['email']
         print(f'{email} + esta listo para enviar correo')
