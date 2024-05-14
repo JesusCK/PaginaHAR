@@ -1163,8 +1163,13 @@ span {
 
 #graficaCircular{
     background-color: white;
-    border-radius: 3rem;
-    border: 5px solid transparent;
+    border-radius: 2rem;
+    border: 5px solid black;
     cursor: pointer;
     transition: 0.4 ease-in-out;
+}
+
+#graficaCircular:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #0898e7;
 }
