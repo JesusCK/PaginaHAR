@@ -6,10 +6,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMAIL_USER, EMAIL_PASSWORD
 import secrets
+from flask_session import Session
 from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
+Session(app)
 destinatario = []
 actions = []
 UPLOAD_FOLDER = 'static'
