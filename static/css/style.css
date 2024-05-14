@@ -1154,3 +1154,8 @@ span {
 #gif {
     border: 1px solid black;
 }
+
+#gif:hover{
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: #0898e7;
+}
