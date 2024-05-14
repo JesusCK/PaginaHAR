@@ -215,21 +215,26 @@ def check_session():
     else:
         return "No hay email en la sesión."
     
-@app.route('/enviar_email', methods=['GET','POST'])
+@app.route('/enviar_email', methods=['GET', 'POST'])
 def enviar_email():
-    if 'email' in session and 'action' in request.json:
+    print("Estado de la sesión al entrar en enviar_email:", session)  # Punto de depuración
+    if 'email' in session:
         email = session['email']
-        print(f'{email} + esta listo para enviar correo')
-        action = request.json['action']
-        if action == 'Alerta de Caída':
-            asunto = "Alerta de Caída"
-            cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
-            send_email(email, asunto, cuerpo)
-            return f"Correo electrónico enviado correctamente a {email}"
+        print(f'{email} está listo para enviar correo')  # Punto de depuración
+        if request.method == 'POST' and request.json and 'action' in request.json:
+            action = request.json['action']
+            if action == 'Alerta de Caída':
+                asunto = "Alerta de Caída"
+                cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
+                send_email(email, asunto, cuerpo)
+                return f"Correo electrónico enviado correctamente a {email}"
+            else:
+                return "Acción no válida.", 400
         else:
-            return "Acción no válida.", 400
+            return "Solicitud incorrecta o acción no proporcionada.", 400
     else:
-        return "No hay correo o alerta de caida", 400
+        return "No hay correo en la sesión.", 400
+
 
 @app.route('/last_fall_date')
 def last_fall_date():
