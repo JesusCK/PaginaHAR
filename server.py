@@ -188,7 +188,7 @@ def gifreceived():
 
 @app.route('/receive_data', methods=['POST'])
 def receive_data():    
-    if request.json and 'action' in request.json and 'date' in request.json and 'email' in session:
+    if request.json and 'action' in request.json and 'date' in request.json:
         # Handle the receipt of predicted actions in JSON format
         action = request.json['action']
         
