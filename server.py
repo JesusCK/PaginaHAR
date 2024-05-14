@@ -205,6 +205,7 @@ def receive_data():
         if action == 'Alerta de Caída' and 'email' in session:
             email = session['email']
             enviar_alerta_de_caída(email)
+            print('Alerta de caída enviada a', email)
 
         return 'Action and date received correctly.'
     else:
