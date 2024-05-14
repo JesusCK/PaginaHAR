@@ -257,10 +257,7 @@ def login():
 from flask import make_response
 from datetime import datetime
 
-@app.after_request
-def add_header(response):
-    response.headers['Cache-Control'] = 'no-store'
-    return response
+
 
 
 
