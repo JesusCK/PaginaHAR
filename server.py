@@ -87,15 +87,15 @@ def salir_de_alertas():
 
 # Función para enviar alertas de caída
 def enviar_alerta_de_caída():
-    asunto = 'Alerta de Caída'
-    cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index'
-    print("enviar alerta de caida")
-    email = session['email']
-    print(email)
-    if email:
-        print(destinatario)
-        send_email(email, asunto, cuerpo)
-        print("enviado")
+    if 'email' in session:  
+        asunto = 'Alerta de Caída'
+        cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index'
+        print("enviar alerta de caida")
+        email = session['email']
+        print(email)
+        if email:
+            send_email(email, asunto, cuerpo)
+            print("enviado")
 
 # Ruta para la página de configuración de alertas
 @app.route('/configuracion_alertas')
