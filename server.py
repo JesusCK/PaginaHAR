@@ -217,8 +217,7 @@ def check_session():
     
 @app.route('/enviar_email', methods=['GET','POST'])
 def enviar_email():
-    print(session)
-    if 'email' in session:
+    if 'email' in session and 'action' in request.json:
         email = session['email']
         print(f'{email} + esta listo para enviar correo')
         action = request.json['action']
