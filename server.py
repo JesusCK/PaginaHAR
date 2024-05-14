@@ -187,31 +187,30 @@ def gifreceived():
         return 'GIF file received correctly.' 
 
 @app.route('/receive_data', methods=['POST'])
-def receive_data():
-    if 'email' in session:    
-        if request.json and 'action' in request.json and 'date' in request.json:
-            # Handle the receipt of predicted actions in JSON format
-            action = request.json['action']
+def receive_data():    
+    if request.json and 'action' in request.json and 'date' in request.json and 'email' in session:
+        # Handle the receipt of predicted actions in JSON format
+        action = request.json['action']
+        
+
+        date = request.json['date']
+        actions.append({'action': action, 'date': date})
+
+        # Insert the action and date into the database
+        query = "INSERT INTO registro (fecha, accion) VALUES (%s, %s)"
+        values = (date, action)
+        cursor.execute(query, values)
+        db.commit()
+
+        if action == 'Alerta de Caída':
             
+            email = session['email']
+            enviar_alerta_de_caída(email)
+            print('Alerta de caída enviada a', email)
 
-            date = request.json['date']
-            actions.append({'action': action, 'date': date})
-
-            # Insert the action and date into the database
-            query = "INSERT INTO registro (fecha, accion) VALUES (%s, %s)"
-            values = (date, action)
-            cursor.execute(query, values)
-            db.commit()
-
-            if action == 'Alerta de Caída':
-                
-                email = session['email']
-                enviar_alerta_de_caída(email)
-                print('Alerta de caída enviada a', email)
-
-            return 'Action and date received correctly.'
-        else:
-            return 'Incorrect request.', 400
+        return 'Action and date received correctly.'
+    else:
+        return 'Incorrect request.', 400
 
 
 
