@@ -215,13 +215,13 @@ def check_session():
     else:
         return "No hay email en la sesión."
     
-@app.route('/enviar_email', methods=['GET', 'POST'])
+@app.route('/enviar_email', methods=['POST'])
 def enviar_email():
-    print("Estado de la sesión al entrar en enviar_email:", session)  # Punto de depuración
+    print("Estado de la sesión al entrar en enviar_email:", session)
     if 'email' in session:
         email = session['email']
-        print(f'{email} está listo para enviar correo')  # Punto de depuración
-        if request.method == 'POST' and request.json and 'action' in request.json:
+        print(f'{email} está listo para enviar correo')
+        if request.json and 'action' in request.json:
             action = request.json['action']
             if action == 'Alerta de Caída':
                 asunto = "Alerta de Caída"
@@ -234,7 +234,6 @@ def enviar_email():
             return "Solicitud incorrecta o acción no proporcionada.", 400
     else:
         return "No hay correo en la sesión.", 400
-
 
 @app.route('/last_fall_date')
 def last_fall_date():
