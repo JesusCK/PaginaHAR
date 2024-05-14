@@ -217,6 +217,17 @@ def receive_data():
     else:
         return 'Incorrect request.', 400
 
+
+
+@app.route('/check_session')
+def check_session():
+    if 'email' in session:
+        return f"Email en la sesión: {session['email']}"
+    else:
+        return "No hay email en la sesión."
+    
+
+
 @app.route('/last_fall_date')
 def last_fall_date():
     print(session)
