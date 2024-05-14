@@ -64,12 +64,10 @@ def registrar_destinatario():
     if request.json and 'email' in request.json:
         email = request.json['email']
         print(email)
-        destinatarios_alerta = get_destinatarios_alerta()
-        destinatarios_alerta.append(email)
+        session['email'] = email
         session.modified = True
-        print(session) 
-        destinatario.append(session['destinatarios_alerta'][0])
-        print(destinatario) # Marcar la sesión como modificada
+        print(f'{session} estan activas') 
+    # Marcar la sesión como modificada
         return redirect(url_for('monitoreo_acciones'))
     else:
         return 'Solicitud incorrecta.', 400
@@ -77,20 +75,14 @@ def registrar_destinatario():
 # Ruta para salir de la lista de destinatarios de alertas
 @app.route('/salir_de_alertas', methods=['POST'])
 def salir_de_alertas():
-    if 'destinatarios_alerta' in session:
+    if 'email' in session:
         print(1)
-        email = session['destinatarios_alerta']
-        print(email)
-        destinatario.clear()
-        destinatarios_alerta = get_destinatarios_alerta()
-        print(destinatarios_alerta)
-        if email == destinatarios_alerta:
-            destinatarios_alerta.remove(email[0])
-            session.modified = True
-            print(destinatarios_alerta)
-            if not destinatarios_alerta:
-                session.pop('destinatarios_alerta', None)
-                print(session)
+        email = session['email']
+        session.pop('destinatarios_alerta', None)
+        print(session)
+        session.modified = True
+        
+        
     return redirect(url_for('pagina_principal'))
 
 # Función para enviar alertas de caída
@@ -100,10 +92,11 @@ def enviar_alerta_de_caída():
     print(session)
     destinatarios_alerta = get_destinatarios_alerta()
     print("enviar alerta de caida")
+    email = session['email']
     print(destinatarios_alerta)
     if destinatario!=[]:
         print(destinatario)
-        send_email(destinatario[0], asunto, cuerpo)
+        send_email(email, asunto, cuerpo)
         print("enviado")
 
 # Ruta para la página de configuración de alertas
