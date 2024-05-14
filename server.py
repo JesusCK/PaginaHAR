@@ -11,7 +11,6 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
-Session(app)
 destinatario = []
 actions = []
 UPLOAD_FOLDER = 'static'
