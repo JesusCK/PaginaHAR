@@ -95,18 +95,14 @@ def salir_de_alertas():
     return redirect(url_for('pagina_principal'))
 
 # Función para enviar alertas de caída
-@app.route('/enviar_alerta_de_caída')
-def enviar_alerta_de_caída():
-    if 'email' in session:
-        print(f'{session} si está registrado')  
-        asunto = 'Alerta de Caída'
-        cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index'
-        print("enviar alerta de caida")
-        email = session['email']
-        print(email)
-        if email:
-            send_email(email, asunto, cuerpo)
-            print("enviado")
+
+def enviar_alerta_de_caída(email):
+    asunto = 'Alerta de Caída'
+    cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index'
+    print("enviar alerta de caida")
+    
+    send_email(email, asunto, cuerpo)
+    print("enviado")
 
 # Ruta para la página de configuración de alertas
 @app.route('/configuracion_alertas')
@@ -195,8 +191,7 @@ def receive_data():
     if request.json and 'action' in request.json and 'date' in request.json:
         # Handle the receipt of predicted actions in JSON format
         action = request.json['action']
-        if action == 'Alerta de Caída':
-            enviar_alerta_de_caída()
+        
 
         date = request.json['date']
         actions.append({'action': action, 'date': date})
@@ -206,6 +201,10 @@ def receive_data():
         values = (date, action)
         cursor.execute(query, values)
         db.commit()
+
+        if action == 'Alerta de Caída' and 'email' in session:
+            email = session['email']
+            enviar_alerta_de_caída(email)
 
         return 'Action and date received correctly.'
     else:
