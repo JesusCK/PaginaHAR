@@ -1160,3 +1160,7 @@ span {
     transform: scale(1.05) translateY(-20px);
     box-shadow: #0898e7;
 }
+
+#graficaCircular{
+    background-color: white;
+}
