@@ -218,6 +218,7 @@ def check_session():
         return f"Email en la sesión: {session['email']}"
     else:
         return "No hay email en la sesión."
+    
 @app.route('/enviar_email')
 def enviar_email():
     print("Estado de la sesión al entrar en enviar_email:", session)
