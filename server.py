@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
 app.config['SESSION_TYPE'] = 'filesystem'  # Puedes usar 'redis' o 'sqlalchemy' si lo prefieres
 app.config['SESSION_FILE_DIR'] = './flask_session/'  # Directorio donde se almacenarán las sesiones en el sistema de archivos
-app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
 
@@ -41,6 +41,8 @@ db = mysql.connector.connect(
 )
 
 cursor = db.cursor()
+
+destinatarios = []
 
 # Función para enviar correos electrónicos
 def send_email(to_email, subject, body):
@@ -214,7 +216,6 @@ def check_session():
         return f"Email en la sesión: {session['email']}"
     else:
         return "No hay email en la sesión."
-    
 @app.route('/enviar_email', methods=['POST'])
 def enviar_email():
     print("Estado de la sesión al entrar en enviar_email:", session)
