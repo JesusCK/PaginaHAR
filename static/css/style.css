@@ -1163,4 +1163,8 @@ span {
 
 #graficaCircular{
     background-color: white;
+    border-radius: 3rem;
+    border: 5px solid transparent;
+    cursor: pointer;
+    transition: 0.4 ease-in-out;
 }
