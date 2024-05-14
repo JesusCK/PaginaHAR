@@ -1166,7 +1166,7 @@ span {
     border-radius: 2rem;
     border: 5px solid white;
     cursor: pointer;
-    transition: 2s ease-in-out;
+    transition: 1s ease-in-out;
 }
 
 #graficaCircular:hover{
