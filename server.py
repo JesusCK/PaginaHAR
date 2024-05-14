@@ -231,6 +231,10 @@ def enviar_email():
             cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
             send_email(email, asunto, cuerpo)
             return f"Correo electrónico enviado correctamente a {email}"
+        else:
+            return "Acción no válida.", 400
+    else:
+        return "No hay correo o alerta de caida", 400
 
 @app.route('/last_fall_date')
 def last_fall_date():
