@@ -1152,6 +1152,8 @@ span {
 
 
 #infoAlert {
+    height:450px ;
+    width: 600px;
     border: 1px solid black;
     transition: 0.3s ease-in-out;
 }
