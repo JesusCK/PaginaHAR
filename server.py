@@ -215,7 +215,7 @@ def check_session():
     else:
         return "No hay email en la sesión."
     
-@app.route('/enviar_email', methods=['POST'])
+@app.route('/enviar_email', methods=['GET','POST'])
 def enviar_email():
     print(session)
     if 'email' in session:
