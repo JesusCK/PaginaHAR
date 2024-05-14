@@ -203,8 +203,6 @@ def receive_data():
         values = (date, action)
         cursor.execute(query, values)
         db.commit()
-        if action == 'Alerta de Caida':
-            return redirect(url_for('enviar_email'))
 
         return 'Action and date received correctly.'
     else:
@@ -218,18 +216,24 @@ def check_session():
         return f"Email en la sesión: {session['email']}"
     else:
         return "No hay email en la sesión."
-    
-@app.route('/enviar_email')
+@app.route('/enviar_email', methods=['POST'])
 def enviar_email():
     print("Estado de la sesión al entrar en enviar_email:", session)
     if 'email' in session:
         email = session['email']
         print(f'{email} está listo para enviar correo')
-        asunto = "Alerta de Caída"
-        cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
-        send_email(email, asunto, cuerpo)
-        return f"Correo electrónico enviado correctamente a {email}"
-    else:  
+        if request.json and 'action' in request.json:
+            action = request.json['action']
+            if action == 'Alerta de Caída':
+                asunto = "Alerta de Caída"
+                cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
+                send_email(email, asunto, cuerpo)
+                return f"Correo electrónico enviado correctamente a {email}"
+            else:
+                return "Acción no válida.", 400
+        else:
+            return "Solicitud incorrecta o acción no proporcionada.", 400
+    else:
         return "No hay correo en la sesión.", 400
 
 @app.route('/last_fall_date')
@@ -257,7 +261,10 @@ def login():
 from flask import make_response
 from datetime import datetime
 
-
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store'
+    return response
 
 
 
