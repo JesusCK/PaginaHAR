@@ -223,7 +223,7 @@ def check_session():
     
 @app.route('/enviar_email', methods=['POST'])
 def enviar_email():
-    if request.json and 'email' in session:
+    if 'email' in session:
         email = session['email']
         action = request.json['action']
         if action == 'Alerta de Caída':
