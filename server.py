@@ -19,7 +19,7 @@ app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
 
 # Inicializa la extensión de sesión
 Session(app)
-destinatario = []
+emails = []
 actions = []
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = {'gif'}
@@ -77,7 +77,8 @@ def registrar_destinatario():
         print(email)
         session['email'] = email
         session.modified = True
-        print(f'{session} estan activas') 
+        print(f'{session} estan activas')
+        emails.append(session['email']) 
     # Marcar la sesión como modificada
         return redirect(url_for('monitoreo_acciones'))
     else:
@@ -89,6 +90,8 @@ def salir_de_alertas():
     if 'email' in session:
         print(1)
         email = session['email']
+        if email in emails:
+            emails.remove(email)
         session.pop('email', None)
         print(session)
         session.modified = True
@@ -218,23 +221,21 @@ def check_session():
         return "No hay email en la sesión."
 @app.route('/enviar_email', methods=['POST'])
 def enviar_email():
-    print("Estado de la sesión al entrar en enviar_email:", session)
-    if 'email' in session:
-        email = session['email']
-        print(f'{email} está listo para enviar correo')
-        if request.json and 'action' in request.json:
-            action = request.json['action']
-            if action == 'Alerta de Caída':
-                asunto = "Alerta de Caída"
-                cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
+    print("Estado de la sesión al entrar en enviar_email:", emails)
+    print(f'{emails} está listo para enviar correo')
+    if request.json and 'action' in request.json:
+        action = request.json['action']
+        if action == 'Alerta de Caída':
+            asunto = "Alerta de Caída"
+            cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
+            for email in emails:
                 send_email(email, asunto, cuerpo)
-                return f"Correo electrónico enviado correctamente a {email}"
-            else:
-                return "Acción no válida.", 400
+            return f"Correo electrónico enviado correctamente a {email}"
         else:
-            return "Solicitud incorrecta o acción no proporcionada.", 400
+            return "Acción no válida.", 400
     else:
-        return "No hay correo en la sesión.", 400
+        return "Solicitud incorrecta o acción no proporcionada.", 400
+   
 
 @app.route('/last_fall_date')
 def last_fall_date():
