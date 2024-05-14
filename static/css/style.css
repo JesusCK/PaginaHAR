@@ -1153,9 +1153,10 @@ span {
 
 #gif {
     border: 1px solid black;
+    transition: 0.3s ease-in-out;
 }
 
 #gif:hover{
-    transform: scale(1.1) translateY(-5px);
+    transform: scale(1.05) translateY(-20px);
     box-shadow: #0898e7;
 }
