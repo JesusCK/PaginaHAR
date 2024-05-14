@@ -225,6 +225,7 @@ def check_session():
 def enviar_email():
     if 'email' in session:
         email = session['email']
+        print(f'{email} + esta listo para enviar correo')
         action = request.json['action']
         if action == 'Alerta de Caída':
             asunto = "Alerta de Caída"
