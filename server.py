@@ -184,6 +184,7 @@ def receive_data():
     if request.json and 'action' in request.json and 'date' in request.json:
         # Handle the receipt of predicted actions in JSON format
         action = request.json['action']
+        print(session+'hola')
         if action == 'Alerta de Caída' and 'email' in session:
             asunto = 'Alerta de Caída'
             cuerpo = 'Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index'
