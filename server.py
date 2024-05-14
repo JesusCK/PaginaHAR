@@ -221,7 +221,16 @@ def check_session():
     else:
         return "No hay email en la sesión."
     
-
+@app.route('/enviar_email', methods=['POST'])
+def enviar_email():
+    if request.json and 'email' in session:
+        email = session['email']
+        action = request.json['action']
+        if action == 'Alerta de Caída':
+            asunto = "Alerta de Caída"
+            cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
+            send_email(email, asunto, cuerpo)
+            return f"Correo electrónico enviado correctamente a {email}"
 
 @app.route('/last_fall_date')
 def last_fall_date():
