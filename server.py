@@ -227,9 +227,9 @@ def last_fall_date():
 def research():
     return render_template('research.html')
 
-@app.route('/registro')
-def registro():
-    return render_template('register.html')
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 from flask import make_response
 from datetime import datetime
