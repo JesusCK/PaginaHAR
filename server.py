@@ -239,8 +239,9 @@ def enviar_email():
 
 @app.route('/last_fall_date')
 def last_fall_date():
-    print(session)
-    print(f'{emails} está listo para enviar correo')
+    print(session, request.remote_addr)
+
+    
     # Query the database for the latest fall action
     query = "SELECT fecha FROM registro WHERE accion = 'Alerta de Caida' ORDER BY fecha DESC LIMIT 1"
     cursor.execute(query)
