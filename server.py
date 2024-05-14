@@ -78,7 +78,7 @@ def salir_de_alertas():
     if 'email' in session:
         print(1)
         email = session['email']
-        session.pop('destinatarios_alerta', None)
+        session.pop('email', None)
         print(session)
         session.modified = True
         
