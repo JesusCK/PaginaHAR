@@ -200,7 +200,7 @@ def receive_data():
 
         date = request.json['date']
         actions.append({'action': action, 'date': date})
-
+        print(actions)
         # Insert the action and date into the database
         query = "INSERT INTO registro (fecha, accion) VALUES (%s, %s)"
         values = (date, action)
