@@ -8,6 +8,7 @@ from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMA
 import secrets
 from flask_session import Session
 from datetime import datetime
+from flask_cors import CORS
 import time
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
@@ -20,6 +21,7 @@ app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 
 # Inicializa la extensión de sesión
+CORS(app ,supports_credentials=True)
 Session(app)
 emails = []
 actions = []
