@@ -281,6 +281,7 @@
             for (var i = 0; i < resultados.length; i++) {
                 if (resultados[i][1] === accion) {
                 var fecha = new Date(resultados[i][0]);
+                console.log(fecha);
                 var hora = fecha.getHours();
                 horas[hora]++;
                 }
