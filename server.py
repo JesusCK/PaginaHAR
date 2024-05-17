@@ -8,8 +8,7 @@ from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMA
 import secrets
 from flask_session import Session
 from datetime import datetime
-from flask_cors import CORS
-import time
+
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
 app.config['SESSION_TYPE'] = 'filesystem'  # Puedes usar 'redis' o 'sqlalchemy' si lo prefieres
@@ -17,13 +16,8 @@ app.config['SESSION_FILE_DIR'] = './flask_session/'  # Directorio donde se almac
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-
 
 # Inicializa la extensión de sesión
-
 Session(app)
 emails = []
 actions = []
@@ -138,8 +132,8 @@ def consultar_historicos():
         fecha_inicio, fecha_fin = datetimes.split(' - ')
         #fecha_inicio += ':00'
         #fecha_fin += ':00'
-        print(datetimes)
-             
+        
+        
         # Convertir las fechas de inicio y fin a formato datetime
         
         fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M')
