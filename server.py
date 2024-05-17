@@ -8,7 +8,7 @@ from paswords import ACOUNT_SID, AUTH_TOKEN, HOST, USER, PASSWORD, DATABASE, EMA
 import secrets
 from flask_session import Session
 from datetime import datetime
-
+import time
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
 app.config['SESSION_TYPE'] = 'filesystem'  # Puedes usar 'redis' o 'sqlalchemy' si lo prefieres
@@ -133,6 +133,9 @@ def consultar_historicos():
         #fecha_inicio += ':00'
         #fecha_fin += ':00'
         print(datetimes)
+
+        time.sleep(10)
+
         
         # Convertir las fechas de inicio y fin a formato datetime
         
