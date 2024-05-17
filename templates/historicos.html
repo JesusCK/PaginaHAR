@@ -131,21 +131,21 @@
 
     <script>
        
-       $(function() {
-            $('input[name="datetimes"]').daterangepicker({
-                timePicker: true,
-                "timePickerIncrement": 10,
-                startDate: '2024-04-27',
-                endDate: moment().startOf('hour'),
-                locale: {
-                    format: 'YYYY-MM-DD hh:mm'
-                }
-            });
+    $(function() {
+         $('input[name="datetimes"]').daterangepicker({
+          timePicker: true,
+          "timePickerIncrement": 10,
+          startDate: '2024-04-27',
+          endDate: moment().startOf('hour'),
+          locale: {
+              format: 'YYYY-MM-DD hh:mm A'
+          }
+         });
 
-            $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
-                console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY hh:mm') + ' to ' + picker.endDate.format('DD-MM-YYYY hh:mm'));
-            });
-        });
+         $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+          console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY hh:mm A') + ' to ' + picker.endDate.format('DD-MM-YYYY hh:mm A'));
+         });
+     });
 
         var fechaActual = new Date();
 
