@@ -133,15 +133,7 @@ def consultar_historicos():
         #fecha_inicio += ':00'
         #fecha_fin += ':00'
         print(datetimes)
-        time.sleep(4)
-        # Convertir las fechas de inicio y fin a formato militar
-        fecha_inicio = fecha_inicio.strftime('%Y-%m-%d %H:%M')
-        fecha_fin = fecha_fin.strftime('%Y-%m-%d %H:%M')
-
-        print(fecha_inicio)
-        print(fecha_fin)
-
-        time.sleep(4)        
+             
         # Convertir las fechas de inicio y fin a formato datetime
         
         fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M')
