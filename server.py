@@ -132,7 +132,7 @@ def consultar_historicos():
         fecha_inicio, fecha_fin = datetimes.split(' - ')
         #fecha_inicio += ':00'
         #fecha_fin += ':00'
-        
+        print(datetimes)
         
         # Convertir las fechas de inicio y fin a formato datetime
         
