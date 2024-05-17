@@ -273,8 +273,9 @@
         }
 
         function generarGraficaBarras(resultados, accion) {
-            console.log(resultados.map(resultado => resultado[0]));
+        
             var fechas = resultados.map(resultado => new Date(resultado[0]));
+            console.log(fechas);
             var esMismoDia = fechas.every(fecha => fecha.toDateString() === fechas[0].toDateString());
 
             if (esMismoDia) {
