@@ -139,12 +139,12 @@
           startDate: '2024-04-27',
           endDate: moment().startOf('hour'),
           locale: {
-              format: 'YYYY-MM-DD HH:mm'
+              format: 'YYYY-MM-DD HH:mm A'
           }
          });
 
          $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
-          console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY HH:mm') + ' to ' + picker.endDate.format('DD-MM-YYYY HH:mm'));
+          console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY HH:mm A') + ' to ' + picker.endDate.format('DD-MM-YYYY HH:mm A'));
          });
      });
 
