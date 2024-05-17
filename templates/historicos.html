@@ -287,6 +287,7 @@
             for (var i = 0; i < resultados.length; i++) {
                 if (resultados[i][1] === accion) {
                 var fecha = new Date(resultados[i][0]);
+                fecha.setHours(fecha.getHours() + 5); // Restar 5 horas a la fecha
                 var hora = fecha.getHours();
                 horas[hora]++;
                 }
