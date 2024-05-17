@@ -17,7 +17,7 @@ app.config['SESSION_FILE_DIR'] = './flask_session/'  # Directorio donde se almac
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
-app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SECURE'] = False
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 
 # Inicializa la extensión de sesión
