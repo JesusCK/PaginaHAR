@@ -23,7 +23,7 @@ app.config['SESSION_COOKIE_HTTPONLY'] = True
 
 
 # Inicializa la extensión de sesión
-CORS(app ,supports_credentials=True)
+
 Session(app)
 emails = []
 actions = []
