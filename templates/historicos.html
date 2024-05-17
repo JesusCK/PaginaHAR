@@ -133,17 +133,18 @@
        
     $(function() {
          $('input[name="datetimes"]').daterangepicker({
+          timePicker24Hour: true,
           timePicker: true,
           "timePickerIncrement": 10,
           startDate: '2024-04-27',
           endDate: moment().startOf('hour'),
           locale: {
-              format: 'YYYY-MM-DD hh:mm A'
+              format: 'YYYY-MM-DD HH:mm'
           }
          });
 
          $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
-          console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY hh:mm A') + ' to ' + picker.endDate.format('DD-MM-YYYY hh:mm A'));
+          console.log("A new date selection was made: " + picker.startDate.format('DD-MM-YYYY HH:mm') + ' to ' + picker.endDate.format('DD-MM-YYYY HH:mm'));
          });
      });
 
