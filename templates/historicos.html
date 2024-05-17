@@ -273,12 +273,16 @@
         }
 
         function generarGraficaBarras(resultados, accion) {
+            var fechas = resultados.map(resultado => new Date(resultado[0]));
+            var esMismoDia = fechas.every(fecha => fecha.toDateString() === fechas[0].toDateString());
+
+            if (esMismoDia) {
             var horas = Array(24).fill(0); // Array para almacenar la cantidad por hora
             for (var i = 0; i < resultados.length; i++) {
                 if (resultados[i][1] === accion) {
-                    var fecha = new Date(resultados[i][0]);
-                    var hora = fecha.getHours();
-                    horas[hora]++;
+                var fecha = new Date(resultados[i][0]);
+                var hora = fecha.getHours();
+                horas[hora]++;
                 }
             }
 
@@ -289,36 +293,78 @@
             window.chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
-                    datasets: [{
-                        label: `Cantidad de ${accion} por hora`,
-                        data: horas,
-                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
+                labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                datasets: [{
+                    label: `Cantidad de ${accion} por hora`,
+                    data: horas,
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
                 },
                 options: {
-                    responsive: true,
-                    scales: {
-                        xAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Hora del día'
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Cantidad'
-                            }
-                        }]
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Hora del día'
                     }
+                    }],
+                    yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Cantidad'
+                    }
+                    }]
+                }
                 }
             });
+            } else {
+            var fechasUnicas = [...new Set(fechas.map(fecha => fecha.toDateString()))];
+            var cantidadPorDia = fechasUnicas.map(fecha => fechas.filter(f => f.toDateString() === fecha).length);
+
+            var ctx = document.getElementById('graficaCircular').getContext('2d');
+            if (window.chart) {
+                window.chart.destroy();
+            }
+            window.chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: fechasUnicas,
+                datasets: [{
+                    label: `Cantidad de ${accion} por día`,
+                    data: cantidadPorDia,
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+                },
+                options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Fecha'
+                    }
+                    }],
+                    yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Cantidad'
+                    }
+                    }]
+                }
+                }
+            });
+            }
         }
 
 // Llama a esta función después de recibir los resultados de la consulta para actualizar el gráfico
