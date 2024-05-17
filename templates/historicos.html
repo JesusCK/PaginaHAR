@@ -171,7 +171,7 @@
             for (var i = 0; i < resultadosPagina.length; i++) {
             var fecha = new Date(resultadosPagina[i][0]);
             fecha.setHours(fecha.getHours() + 5); // Sumar 5 horas a la fecha
-            var formattedDate = fecha.toISOString().slice(0, 16); // Formato YYYY-MM-DD HH:mm
+            var formattedDate = fecha.toISOString().slice(0, 10) + ' ' + fecha.toISOString().slice(11, 16); // Formato YYYY-MM-DD HH:mm
             tabla += '<tr><td>' + formattedDate + '</td><td>' + resultadosPagina[i][1] + '</td></tr>';
             }
             document.querySelector('#resultados tbody').innerHTML = tabla;
