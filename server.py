@@ -19,7 +19,7 @@ app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
-app.config['SESSION_COOKIE_DOMAIN'] = 'seniorsafe.ddns.net'
+app.config['SESSION_COOKIE_HTTPONLY'] = True
 
 
 # Inicializa la extensión de sesión
