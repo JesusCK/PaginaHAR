@@ -271,6 +271,55 @@
             });
         }
 
+        function generarGraficaBarras(resultados, accion) {
+            var horas = Array(24).fill(0); // Array para almacenar la cantidad por hora
+            for (var i = 0; i < resultados.length; i++) {
+                if (resultados[i][1] === accion) {
+                    var fecha = new Date(resultados[i][0]);
+                    var hora = fecha.getHours();
+                    horas[hora]++;
+                }
+            }
+
+            var ctx = document.getElementById('graficaCircular').getContext('2d');
+            if (window.chart) {
+                window.chart.destroy();
+            }
+            window.chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    datasets: [{
+                        label: `Cantidad de ${accion} por hora`,
+                        data: horas,
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Hora del día'
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Cantidad'
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
 // Llama a esta función después de recibir los resultados de la consulta para actualizar el gráfico
 
         // Escuchar el evento click del botón "Siguiente"
@@ -297,7 +346,12 @@
             if (data.resultados) {
                 resultados = data.resultados; // Almacenar los resultados de la consulta
                 actualizarTabla(resultados);
-                generarGraficaCircular(resultados);
+                var accionSeleccionada = document.querySelector('#accion').value;
+                    if (accionSeleccionada) {
+                        generarGraficaBarras(resultados, accionSeleccionada);
+                    } else {
+                        generarGraficaCircular(resultados);
+                    }
             }
             else if (data.resultados.length == 0){
                 alert('No se encontraron resultados en el rango de fechas especificado.');
