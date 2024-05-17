@@ -325,6 +325,7 @@
             });
             } else {
             var fechasUnicas = [...new Set(fechas.map(fecha => fecha.toDateString()))];
+            fechasUnicas.sort((a, b) => new Date(a) - new Date(b)); // Ordenar las fechas de forma ascendente
             var cantidadPorDia = fechasUnicas.map(fecha => fechas.filter(f => f.toDateString() === fecha).length);
 
             var ctx = document.getElementById('graficaCircular').getContext('2d');
