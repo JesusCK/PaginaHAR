@@ -276,7 +276,7 @@
         
             var fechas = resultados.map(resultado => {
                 var fecha = new Date(resultado[0]);
-                fecha.setHours(fecha.getHours() + 5); // Restar 5 horas a la fecha
+                fecha.setHours(fecha.getHours() - 5); // Restar 5 horas a la fecha
                 return fecha;
             });
             console.log(fechas);
