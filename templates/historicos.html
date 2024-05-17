@@ -169,10 +169,10 @@
             var fin = inicio + resultadosPorPagina;
             var resultadosPagina = resultados.slice(inicio, fin);
             for (var i = 0; i < resultadosPagina.length; i++) {
-                var fecha = new Date(resultadosPagina[i][0]);
-                fecha.setHours(fecha.getHours() + 5); // Sumar 5 horas a la fecha
-                var formattedDate = fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear() + ' ' + fecha.getHours() + ':' + fecha.getMinutes() + ':' + fecha.getSeconds();
-                tabla += '<tr><td>' + formattedDate + '</td><td>' + resultadosPagina[i][1] + '</td></tr>';
+            var fecha = new Date(resultadosPagina[i][0]);
+            fecha.setHours(fecha.getHours() + 5); // Sumar 5 horas a la fecha
+            var formattedDate = fecha.toISOString().slice(0, 16); // Formato YYYY-MM-DD HH:mm
+            tabla += '<tr><td>' + formattedDate + '</td><td>' + resultadosPagina[i][1] + '</td></tr>';
             }
             document.querySelector('#resultados tbody').innerHTML = tabla;
             document.querySelector('#indice').textContent = 'Página ' + (paginaActual + 1) + ' de ' + Math.ceil(resultados.length / resultadosPorPagina);
