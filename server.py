@@ -13,12 +13,14 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Genera una clave secreta aleatoria de 16 bytes (32 caracteres hexadecimales)
 app.config['SESSION_TYPE'] = 'filesystem'  # Puedes usar 'redis' o 'sqlalchemy' si lo prefieres
 app.config['SESSION_FILE_DIR'] = './flask_session/'  # Directorio donde se almacenarán las sesiones en el sistema de archivos
-app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'flask_session:'
 app.config['SESSION_COOKIE_PATH'] = '/'
 
-# Inicializa la extensión de sesión
+app.config.update(
+    PERMANENT_SESSION_LIFETIME=600
+)
 Session(app)
 emails = []
 actions = []
