@@ -150,10 +150,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
+      function Redirect() {
+        window.location.href = "/index";
+      }
       var form = document.querySelector("#survey");
         form.addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent the form from submitting normally
-            window.location.href = "/index"; // Call the sendData function to send the data
+            Redirect(); // Call the sendData function to send the data
         });
     </script>
   </body>
