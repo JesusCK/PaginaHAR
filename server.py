@@ -264,6 +264,10 @@ def research():
 def login():
     return render_template('login.html')
 
+@app.route('/emails_users')
+def emails_users():
+    return f'emails registrados: {emails}'
+
 from flask import make_response
 from datetime import datetime
 
