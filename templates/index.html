@@ -77,9 +77,10 @@
         });
 
     
-        
+
         // Añadir un evento para detectar cuando el usuario se va de la página
         window.addEventListener('beforeunload', function (e) {
+            if (window.location.pathname === '/index') {
             // Crear una solicitud sincrónica a tu servidor para cerrar la sesión
             navigator.sendBeacon('/salir_de_alertas');
 
@@ -87,6 +88,7 @@
             var confirmationMessage = '¿Estás seguro de que quieres salir?';
             e.returnValue = confirmationMessage; // Gecko, Trident, Chrome 34+
             return confirmationMessage; // Gecko, WebKit, Chrome <34
+            }
         });
     
     </script>
