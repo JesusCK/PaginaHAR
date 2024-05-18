@@ -75,6 +75,19 @@
             
         
         });
+
+        
+        // Añadir un evento para detectar cuando el usuario se va de la página
+        window.addEventListener('beforeunload', function (e) {
+            // Crear una solicitud sincrónica a tu servidor para cerrar la sesión
+            navigator.sendBeacon('/salir_de_alertas');
+
+            // El mensaje de confirmación para salir de la página no se muestra en la mayoría de los navegadores modernos
+            var confirmationMessage = '¿Estás seguro de que quieres salir?';
+            e.returnValue = confirmationMessage; // Gecko, Trident, Chrome 34+
+            return confirmationMessage; // Gecko, WebKit, Chrome <34
+        });
+    
     </script>
 
     
