@@ -43,7 +43,7 @@ db = mysql.connector.connect(
     database=DATABASE
 )
 
-
+cursor = db.cursor()
 
 destinatarios = []
 
@@ -153,7 +153,7 @@ def consultar_historicos():
         #print(datetimes)
         print(fecha_inicio)
 
-        cursor = db.cursor()
+        
         # Construir la consulta SQL con el filtro de acción
         if accion:
             query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s AND accion = %s ORDER BY fecha DESC"
@@ -164,7 +164,7 @@ def consultar_historicos():
 
         resultados = cursor.fetchall()
 
-        cursor.close()
+    
 
         # Devolver los resultados como JSON
         return jsonify({'resultados': resultados})
@@ -207,14 +207,14 @@ def receive_data():
 
         date = request.json['date']
         actions.append({'action': action, 'date': date})
-        cursor = db.cursor()
+        
        
         # Insert the action and date into the database
         query = "INSERT INTO registro (fecha, accion) VALUES (%s, %s)"
         values = (date, action)
         cursor.execute(query, values)
         db.commit()
-        cursor.close()
+        
 
         return 'Action and date received correctly.'
     else:
@@ -250,12 +250,12 @@ def enviar_email():
 def last_fall_date():
     print(session, request.remote_addr)
 
-    cursor = db.cursor()
+    
     # Query the database for the latest fall action
     query = "SELECT fecha FROM registro WHERE accion = 'Alerta de Caida' ORDER BY fecha DESC LIMIT 1"
     cursor.execute(query)
     result = cursor.fetchone()
-    cursor.close()
+    
 
     # If a fall action exists, return the date
     if result:
