@@ -39,13 +39,13 @@
     </div>
 
     <script>
-        // Evento beforeunload para mostrar mensaje genérico
+        // Función para manejar el evento beforeunload y usar fetchLater
         window.addEventListener('beforeunload', function (e) {
             if (window.location.pathname === '/index') {
-                // Crear una solicitud síncrona a tu servidor para cerrar la sesión
-                navigator.sendBeacon('/salir_de_alertas');
+                // Usar fetchLater para enviar una solicitud al servidor
+                fetchLater('/salir_de_alertas');
 
-                // El mensaje de confirmación para salir de la página no se muestra en la mayoría de los navegadores modernos
+                // Mensaje de confirmación genérico para navegadores modernos
                 var confirmationMessage = '¿Estás seguro de que quieres salir? Dejarás de recibir notificaciones';
                 e.returnValue = confirmationMessage; // Gecko, Trident, Chrome 34+
                 return confirmationMessage; // Gecko, WebKit, Chrome <34
@@ -60,7 +60,9 @@
             document.getElementById('confirmExit').onclick = function() {
                 modal.style.display = 'none';
                 window.removeEventListener('beforeunload', preventUnload); // Permitir la salida
-                window.location.href = '/salir_de_alertas'; // Redirigir si es necesario
+                fetch('/salir_de_alertas').then(() => {
+                    window.location.href = '/salir_de_alertas'; // Redirigir si es necesario
+                });
             };
 
             document.getElementById('cancelExit').onclick = function() {
@@ -68,7 +70,7 @@
             };
         }
 
-        // Función para prevenir la descarga
+        // Función para prevenir la descarga accidental
         function preventUnload(e) {
             e.preventDefault();
             e.returnValue = '';
@@ -81,10 +83,13 @@
 
         // Añadir el evento de beforeunload para prevenir la salida accidental
         window.addEventListener('beforeunload', preventUnload);
+
+        // Mock de la API fetchLater para propósitos de demostración
+        function fetchLater(url) {
+            // Aquí podrías implementar lógica para diferir la solicitud
+            console.log('fetchLater called for URL:', url);
+        }
     </script>
 
 </body>
 </html>
-
-
-
