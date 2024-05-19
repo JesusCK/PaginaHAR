@@ -1,86 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>SeniorSafe</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="icon" href="../static/icons/logoseniorsafe.svg" type="image/svg+xml">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
-
+    <title>Confirmación de Salida</title>
+    <style>
+        /* Estilos básicos para el modal */
+        #exitModal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            display: none; /* Ocultar por defecto */
+        }
+        #exitModal p {
+            margin: 0 0 10px;
+        }
+        #exitModal button {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-   
-    
 
+    <h1>Página Principal</h1>
+    <p>Esta es la página principal. Al intentar salir, verás una confirmación.</p>
+    <button id="exitButton">Salir</button>
+
+    <!-- Modal de Confirmación -->
+    <div id="exitModal">
+        <p>¿Estás seguro de que quieres salir? Dejarás de recibir notificaciones.</p>
+        <button id="confirmExit">Sí, salir</button>
+        <button id="cancelExit">Cancelar</button>
+    </div>
 
     <script>
         // Evento beforeunload para mostrar mensaje genérico
-    window.addEventListener('beforeunload', function (e) {
-        if (window.location.pathname === '/index') {
-            // Crear una solicitud síncrona a tu servidor para cerrar la sesión
-            navigator.sendBeacon('/salir_de_alertas');
+        window.addEventListener('beforeunload', function (e) {
+            if (window.location.pathname === '/index') {
+                // Crear una solicitud síncrona a tu servidor para cerrar la sesión
+                navigator.sendBeacon('/salir_de_alertas');
 
-            // El mensaje de confirmación para salir de la página no se muestra en la mayoría de los navegadores modernos
-            var confirmationMessage = '¿Estás seguro de que quieres salir? Dejarás de recibir notificaciones';
-            e.returnValue = confirmationMessage; // Gecko, Trident, Chrome 34+
-            return confirmationMessage; // Gecko, WebKit, Chrome <34
+                // El mensaje de confirmación para salir de la página no se muestra en la mayoría de los navegadores modernos
+                var confirmationMessage = '¿Estás seguro de que quieres salir? Dejarás de recibir notificaciones';
+                e.returnValue = confirmationMessage; // Gecko, Trident, Chrome 34+
+                return confirmationMessage; // Gecko, WebKit, Chrome <34
+            }
+        });
+
+        // Mostrar un modal de confirmación antes de realizar acciones clave
+        function showExitModal() {
+            var modal = document.getElementById('exitModal');
+            modal.style.display = 'block';
+
+            document.getElementById('confirmExit').onclick = function() {
+                modal.style.display = 'none';
+                window.removeEventListener('beforeunload', preventUnload); // Permitir la salida
+                window.location.href = '/salir_de_alertas'; // Redirigir si es necesario
+            };
+
+            document.getElementById('cancelExit').onclick = function() {
+                modal.style.display = 'none';
+            };
         }
-    });
 
-    // Mostrar un modal de confirmación antes de realizar acciones clave
-    function showExitModal() {
-        var modal = document.createElement('div');
-        modal.style.position = 'fixed';
-        modal.style.top = '50%';
-        modal.style.left = '50%';
-        modal.style.transform = 'translate(-50%, -50%)';
-        modal.style.padding = '20px';
-        modal.style.backgroundColor = '#fff';
-        modal.style.border = '1px solid #ccc';
-        modal.style.zIndex = '1000';
-        modal.innerHTML = `
-            <p>¿Estás seguro de que quieres salir? Dejarás de recibir notificaciones.</p>
-            <button id="confirmExit">Sí, salir</button>
-            <button id="cancelExit">Cancelar</button>
-        `;
-        document.body.appendChild(modal);
+        // Función para prevenir la descarga
+        function preventUnload(e) {
+            e.preventDefault();
+            e.returnValue = '';
+        }
 
-        document.getElementById('confirmExit').onclick = function() {
-            modal.remove();
-            window.removeEventListener('beforeunload', preventUnload); // Permitir la salida
-            window.location.href = '/salir_de_alertas'; // Redirigir si es necesario
+        // Añadir el modal de salida a acciones clave, por ejemplo, clic en un botón de salir
+        document.getElementById('exitButton').onclick = function() {
+            showExitModal();
         };
 
-        document.getElementById('cancelExit').onclick = function() {
-            modal.remove();
-        };
-    }
-
-    // Función para prevenir la descarga
-    function preventUnload(e) {
-        e.preventDefault();
-        e.returnValue = '';
-    }
-
-    // Añadir el modal de salida a acciones clave, por ejemplo, clic en un botón de salir
-    document.getElementById('exitButton').onclick = function() {
-        showExitModal();
-    };
-
-    // Añadir el evento de beforeunload para prevenir la salida accidental
-    window.addEventListener('beforeunload', preventUnload);
-
+        // Añadir el evento de beforeunload para prevenir la salida accidental
+        window.addEventListener('beforeunload', preventUnload);
     </script>
 
-   
-   </body>
+</body>
 </html>
+
 
 
