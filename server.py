@@ -43,7 +43,7 @@ db = mysql.connector.connect(
     database=DATABASE
 )
 
-
+cursor = db.cursor()
 
 destinatarios = []
 
@@ -155,21 +155,19 @@ def consultar_historicos():
 
         
         # Construir la consulta SQL con el filtro de acción
-        try:
-            with db.cursor() as cursor:
-                if accion:
-                    query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s AND accion = %s ORDER BY fecha DESC"
-                    cursor.execute(query, (fecha_inicio, fecha_fin, accion))
-                else:
-                    query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s ORDER BY fecha DESC"
-                    cursor.execute(query, (fecha_inicio, fecha_fin))
+        if accion:
+            query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s AND accion = %s ORDER BY fecha DESC"
+            cursor.execute(query, (fecha_inicio, fecha_fin, accion))
+        else:
+            query = "SELECT fecha, accion FROM registro WHERE fecha BETWEEN %s AND %s ORDER BY fecha DESC"
+            cursor.execute(query, (fecha_inicio, fecha_fin))
 
-                resultados = cursor.fetchall()
+        resultados = cursor.fetchall()
 
-            return jsonify({'resultados': resultados})
-        except mysql.connector.Error as err:
-            print("Error: ", err)
-            return 'Error al consultar los datos.', 500
+    
+
+        # Devolver los resultados como JSON
+        return jsonify({'resultados': resultados})
     else:
         return 'Método de solicitud no permitido.', 405
 
@@ -212,17 +210,13 @@ def receive_data():
         
        
         # Insert the action and date into the database
-        try:
-            with db.cursor() as cursor:
-                query = "INSERT INTO registro (fecha, accion) VALUES (%s, %s)"
-                values = (date, action)
-                cursor.execute(query, values)
-                db.commit()
+        query = "INSERT INTO registro (fecha, accion) VALUES (%s, %s)"
+        values = (date, action)
+        cursor.execute(query, values)
+        db.commit()
+        
 
-            return 'Action and date received correctly.'
-        except mysql.connector.Error as err:
-            print("Error: ", err)
-            return 'Error al insertar los datos.', 500
+        return 'Action and date received correctly.'
     else:
         return 'Incorrect request.', 400
 
@@ -240,14 +234,15 @@ def enviar_email():
     print(f'{emails} está listo para enviar correo')
     if request.json and 'action' in request.json:
         action = request.json['action']
-        if action == 'Alerta de Caída' and emails!=[]:
+        if action == 'Alerta de Caída' and emails:
             asunto = "Alerta de Caída"
             cuerpo = "Se ha detectado una caída. Por favor, verifique el estado de la persona. http://seniorsafe.ddns.net/index"
             for email in emails:
                 send_email(email, asunto, cuerpo)
             return f"Correo electrónico enviado correctamente a {email}"
         else:
-            print("No se envió el correo electrónico.")
+            if not emails:
+                return "No hay destinatarios de alertas registrados."
             return "Acción no válida.", 400
     else:
         return "Solicitud incorrecta o acción no proporcionada.", 400
@@ -259,19 +254,16 @@ def last_fall_date():
 
     
     # Query the database for the latest fall action
-    try:
-        with db.cursor() as cursor:
-            query = "SELECT fecha FROM registro WHERE accion = 'Alerta de Caida' ORDER BY fecha DESC LIMIT 1"
-            cursor.execute(query)
-            result = cursor.fetchone()
+    query = "SELECT fecha FROM registro WHERE accion = 'Alerta de Caida' ORDER BY fecha DESC LIMIT 1"
+    cursor.execute(query)
+    result = cursor.fetchone()
+    
 
-        if result:
-            return jsonify({'last_fall_date': result[0]})
-        else:
-            return 'No fall action found.', 404
-    except mysql.connector.Error as err:
-        print("Error: ", err)
-        return 'Error al consultar la última fecha de caída.', 500
+    # If a fall action exists, return the date
+    if result:
+        return jsonify({'last_fall_date': result[0]})
+    else:
+        return 'No fall action found.', 404
 
 @app.route('/research')
 def research():
